@@ -49,13 +49,15 @@
             // 
             // Button_Start
             // 
+            this.Button_Start.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Button_Start.Font = new System.Drawing.Font("Pretendard Variable ExtraBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Button_Start.Location = new System.Drawing.Point(164, 144);
             this.Button_Start.Name = "Button_Start";
             this.Button_Start.Size = new System.Drawing.Size(235, 89);
             this.Button_Start.TabIndex = 0;
             this.Button_Start.Text = "송신 시작";
-            this.Button_Start.UseVisualStyleBackColor = true;
+            this.Button_Start.UseVisualStyleBackColor = false;
+            this.Button_Start.Click += new System.EventHandler(this.Button_Start_Click);
             // 
             // Button_Stop
             // 
@@ -66,6 +68,7 @@
             this.Button_Stop.TabIndex = 1;
             this.Button_Stop.Text = "송신 종료";
             this.Button_Stop.UseVisualStyleBackColor = true;
+            this.Button_Stop.Click += new System.EventHandler(this.Button_Stop_Click);
             // 
             // Label_Change_GPS
             // 
@@ -221,6 +224,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Button_Change_HZ);
             this.Controls.Add(this.Button_Change_PortRPM);
@@ -241,7 +245,6 @@
             this.Controls.Add(this.Button_Start);
             this.Name = "ShipEmulatorView";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.ShipEmulatorView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
