@@ -70,6 +70,7 @@ namespace Ship_ShipEmulator
 
         private int AddRPM()
         {
+
             return random.Next(500, 1500);
         }
 
@@ -77,22 +78,57 @@ namespace Ship_ShipEmulator
         {
             string Gps;
             int Rpm;
-            int time = 1000 / mHz;
+            int time;
             byte[] GpsData;
             byte[] RpmData;
 
 
             while (mIsRunning)
             {
+                time = 1000 / mHz;
                 Gps = AddGPS();
                 Rpm = AddRPM();
 
                 GpsData = Encoding.UTF8.GetBytes(Gps);
                 RpmData = BitConverter.GetBytes(Rpm); // int값을 보내려면 이렇게 보내야함. 이후 수신에서 BitConverter.ToInt32(receivedBytes, 0); 로 받을 수 있음 
+
                 mGpsUDPClient.Send(GpsData, GpsData.Length, "127.0.0.1", mGpsPort);
                 mRpmUDLClient.Send(RpmData, RpmData.Length, "127.0.0.1", mRpmPort);
-                Console.WriteLine(Gps);
+
+                //Console.WriteLine(Gps);
+                //Console.WriteLine(mGpsPort);
+                //Console.WriteLine(Rpm);
+                //Console.WriteLine(mRpmPort);
+                //Console.WriteLine(mHz);
+                //Console.WriteLine(time);
                 Thread.Sleep(time);
+            }
+        }
+
+        private void Button_Change_PortGPS_Click(object sender, EventArgs e)
+        {
+            if(TextBox_Change_portGPS.Text != "")
+            {
+                mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
+                Label_Text_PortGPS.Text = mGpsPort.ToString();
+            }
+        }
+
+        private void Button_Change_PortRPM_Click(object sender, EventArgs e)
+        {
+            if (TextBox_Change_portRPM.Text != "")
+            {
+                mRpmPort = int.Parse(TextBox_Change_portRPM.Text);
+                Label_Text_PortRPM.Text = mRpmPort.ToString();
+            }
+        }
+
+        private void Button_Change_HZ_Click(object sender, EventArgs e)
+        {
+            if (TextBox_Change_HZ.Text != "")
+            {
+                mHz = int.Parse(TextBox_Change_HZ.Text);
+                Label_Text_HZ.Text = mHz.ToString();
             }
         }
     }
