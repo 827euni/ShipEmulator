@@ -22,7 +22,6 @@ namespace Ship_ShipEmulator
         private int mGpsPort = 2323;
         private int mRpmPort = 2424;
         private int mHz = 10;
-        private int mRP
         public ShipEmulatorView()
         {
             InitializeComponent();
