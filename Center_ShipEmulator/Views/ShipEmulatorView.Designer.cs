@@ -36,13 +36,16 @@
             this.Label_Text_Longitude = new System.Windows.Forms.Label();
             this.gMap_Main = new GMap.NET.WindowsForms.GMapControl();
             this.button1 = new System.Windows.Forms.Button();
+            this.Button_Stop = new System.Windows.Forms.Button();
+            this.Button_Start = new System.Windows.Forms.Button();
+            this.Label_Text_RPM = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Label_Explanation_Sentence
             // 
             this.Label_Explanation_Sentence.AutoSize = true;
             this.Label_Explanation_Sentence.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Explanation_Sentence.Location = new System.Drawing.Point(104, 27);
+            this.Label_Explanation_Sentence.Location = new System.Drawing.Point(103, 71);
             this.Label_Explanation_Sentence.Name = "Label_Explanation_Sentence";
             this.Label_Explanation_Sentence.Size = new System.Drawing.Size(114, 29);
             this.Label_Explanation_Sentence.TabIndex = 0;
@@ -52,7 +55,7 @@
             // 
             this.Label_Explanation_Longitude.AutoSize = true;
             this.Label_Explanation_Longitude.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Explanation_Longitude.Location = new System.Drawing.Point(654, 75);
+            this.Label_Explanation_Longitude.Location = new System.Drawing.Point(663, 116);
             this.Label_Explanation_Longitude.Name = "Label_Explanation_Longitude";
             this.Label_Explanation_Longitude.Size = new System.Drawing.Size(55, 29);
             this.Label_Explanation_Longitude.TabIndex = 1;
@@ -62,7 +65,7 @@
             // 
             this.Label_Explanation_Latitude.AutoSize = true;
             this.Label_Explanation_Latitude.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Explanation_Latitude.Location = new System.Drawing.Point(382, 75);
+            this.Label_Explanation_Latitude.Location = new System.Drawing.Point(391, 116);
             this.Label_Explanation_Latitude.Name = "Label_Explanation_Latitude";
             this.Label_Explanation_Latitude.Size = new System.Drawing.Size(55, 29);
             this.Label_Explanation_Latitude.TabIndex = 2;
@@ -72,7 +75,7 @@
             // 
             this.Label_Text_Sentence.AutoSize = true;
             this.Label_Text_Sentence.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Text_Sentence.Location = new System.Drawing.Point(224, 31);
+            this.Label_Text_Sentence.Location = new System.Drawing.Point(223, 75);
             this.Label_Text_Sentence.Name = "Label_Text_Sentence";
             this.Label_Text_Sentence.Size = new System.Drawing.Size(909, 29);
             this.Label_Text_Sentence.TabIndex = 3;
@@ -82,7 +85,7 @@
             // 
             this.Label_Text_Latitude.AutoSize = true;
             this.Label_Text_Latitude.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Text_Latitude.Location = new System.Drawing.Point(456, 75);
+            this.Label_Text_Latitude.Location = new System.Drawing.Point(465, 116);
             this.Label_Text_Latitude.Name = "Label_Text_Latitude";
             this.Label_Text_Latitude.Size = new System.Drawing.Size(150, 29);
             this.Label_Text_Latitude.TabIndex = 4;
@@ -92,7 +95,7 @@
             // 
             this.Label_Text_Longitude.AutoSize = true;
             this.Label_Text_Longitude.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Text_Longitude.Location = new System.Drawing.Point(715, 75);
+            this.Label_Text_Longitude.Location = new System.Drawing.Point(724, 116);
             this.Label_Text_Longitude.Name = "Label_Text_Longitude";
             this.Label_Text_Longitude.Size = new System.Drawing.Size(164, 29);
             this.Label_Text_Longitude.TabIndex = 5;
@@ -106,7 +109,7 @@
             this.gMap_Main.GrayScaleMode = false;
             this.gMap_Main.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMap_Main.LevelsKeepInMemory = 5;
-            this.gMap_Main.Location = new System.Drawing.Point(109, 126);
+            this.gMap_Main.Location = new System.Drawing.Point(108, 170);
             this.gMap_Main.MarkersEnabled = true;
             this.gMap_Main.MaxZoom = 2;
             this.gMap_Main.MinZoom = 2;
@@ -126,18 +129,54 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(109, 475);
+            this.button1.Location = new System.Drawing.Point(108, 519);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(1024, 202);
             this.button1.TabIndex = 7;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // Button_Stop
+            // 
+            this.Button_Stop.Font = new System.Drawing.Font("Pretendard Variable ExtraBold", 16F, System.Drawing.FontStyle.Bold);
+            this.Button_Stop.Location = new System.Drawing.Point(1124, 12);
+            this.Button_Stop.Name = "Button_Stop";
+            this.Button_Stop.Size = new System.Drawing.Size(118, 45);
+            this.Button_Stop.TabIndex = 9;
+            this.Button_Stop.Text = "송신 종료";
+            this.Button_Stop.UseVisualStyleBackColor = true;
+            this.Button_Stop.Click += new System.EventHandler(this.Button_Stop_Click);
+            // 
+            // Button_Start
+            // 
+            this.Button_Start.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Button_Start.Font = new System.Drawing.Font("Pretendard Variable ExtraBold", 16F, System.Drawing.FontStyle.Bold);
+            this.Button_Start.Location = new System.Drawing.Point(1000, 12);
+            this.Button_Start.Name = "Button_Start";
+            this.Button_Start.Size = new System.Drawing.Size(118, 45);
+            this.Button_Start.TabIndex = 8;
+            this.Button_Start.Text = "송신 시작";
+            this.Button_Start.UseVisualStyleBackColor = false;
+            this.Button_Start.Click += new System.EventHandler(this.Button_Start_Click);
+            // 
+            // Label_Text_RPM
+            // 
+            this.Label_Text_RPM.AutoSize = true;
+            this.Label_Text_RPM.Font = new System.Drawing.Font("Pretendard Variable Black", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label_Text_RPM.Location = new System.Drawing.Point(556, 539);
+            this.Label_Text_RPM.Name = "Label_Text_RPM";
+            this.Label_Text_RPM.Size = new System.Drawing.Size(131, 58);
+            this.Label_Text_RPM.TabIndex = 10;
+            this.Label_Text_RPM.Text = "1224";
+            // 
             // ShipEmulatorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 689);
+            this.Controls.Add(this.Label_Text_RPM);
+            this.Controls.Add(this.Button_Stop);
+            this.Controls.Add(this.Button_Start);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.gMap_Main);
             this.Controls.Add(this.Label_Text_Longitude);
@@ -164,6 +203,9 @@
         private System.Windows.Forms.Label Label_Text_Longitude;
         private GMap.NET.WindowsForms.GMapControl gMap_Main;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Button_Stop;
+        private System.Windows.Forms.Button Button_Start;
+        private System.Windows.Forms.Label Label_Text_RPM;
     }
 }
 
