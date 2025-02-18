@@ -34,7 +34,7 @@
             this.Label_Text_Sentence = new System.Windows.Forms.Label();
             this.Label_Text_Latitude = new System.Windows.Forms.Label();
             this.Label_Text_Longitude = new System.Windows.Forms.Label();
-            this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
+            this.gMap_Main = new GMap.NET.WindowsForms.GMapControl();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -84,9 +84,9 @@
             this.Label_Text_Latitude.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label_Text_Latitude.Location = new System.Drawing.Point(456, 75);
             this.Label_Text_Latitude.Name = "Label_Text_Latitude";
-            this.Label_Text_Latitude.Size = new System.Drawing.Size(124, 29);
+            this.Label_Text_Latitude.Size = new System.Drawing.Size(150, 29);
             this.Label_Text_Latitude.TabIndex = 4;
-            this.Label_Text_Latitude.Text = "37.5664도";
+            this.Label_Text_Latitude.Text = "37.481063도";
             // 
             // Label_Text_Longitude
             // 
@@ -94,35 +94,35 @@
             this.Label_Text_Longitude.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label_Text_Longitude.Location = new System.Drawing.Point(715, 75);
             this.Label_Text_Longitude.Name = "Label_Text_Longitude";
-            this.Label_Text_Longitude.Size = new System.Drawing.Size(133, 29);
+            this.Label_Text_Longitude.Size = new System.Drawing.Size(164, 29);
             this.Label_Text_Longitude.TabIndex = 5;
-            this.Label_Text_Longitude.Text = "126.9777도";
+            this.Label_Text_Longitude.Text = "126.879302도";
             // 
-            // gMapControl1
+            // gMap_Main
             // 
-            this.gMapControl1.Bearing = 0F;
-            this.gMapControl1.CanDragMap = true;
-            this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
-            this.gMapControl1.GrayScaleMode = false;
-            this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.gMapControl1.LevelsKeepInMemory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(109, 126);
-            this.gMapControl1.MarkersEnabled = true;
-            this.gMapControl1.MaxZoom = 2;
-            this.gMapControl1.MinZoom = 2;
-            this.gMapControl1.MouseWheelZoomEnabled = true;
-            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.gMapControl1.Name = "gMapControl1";
-            this.gMapControl1.NegativeMode = false;
-            this.gMapControl1.PolygonsEnabled = true;
-            this.gMapControl1.RetryLoadTile = 0;
-            this.gMapControl1.RoutesEnabled = true;
-            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(1024, 332);
-            this.gMapControl1.TabIndex = 6;
-            this.gMapControl1.Zoom = 0D;
+            this.gMap_Main.Bearing = 0F;
+            this.gMap_Main.CanDragMap = true;
+            this.gMap_Main.EmptyTileColor = System.Drawing.Color.Navy;
+            this.gMap_Main.GrayScaleMode = false;
+            this.gMap_Main.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gMap_Main.LevelsKeepInMemory = 5;
+            this.gMap_Main.Location = new System.Drawing.Point(109, 126);
+            this.gMap_Main.MarkersEnabled = true;
+            this.gMap_Main.MaxZoom = 2;
+            this.gMap_Main.MinZoom = 2;
+            this.gMap_Main.MouseWheelZoomEnabled = true;
+            this.gMap_Main.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gMap_Main.Name = "gMap_Main";
+            this.gMap_Main.NegativeMode = false;
+            this.gMap_Main.PolygonsEnabled = true;
+            this.gMap_Main.RetryLoadTile = 0;
+            this.gMap_Main.RoutesEnabled = true;
+            this.gMap_Main.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.gMap_Main.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gMap_Main.ShowTileGridLines = false;
+            this.gMap_Main.Size = new System.Drawing.Size(1024, 332);
+            this.gMap_Main.TabIndex = 6;
+            this.gMap_Main.Zoom = 0D;
             // 
             // button1
             // 
@@ -139,7 +139,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 689);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.gMapControl1);
+            this.Controls.Add(this.gMap_Main);
             this.Controls.Add(this.Label_Text_Longitude);
             this.Controls.Add(this.Label_Text_Latitude);
             this.Controls.Add(this.Label_Text_Sentence);
@@ -148,6 +148,7 @@
             this.Controls.Add(this.Label_Explanation_Sentence);
             this.Name = "ShipEmulatorView";
             this.Text = "ShipEmulator";
+            this.Load += new System.EventHandler(this.ShipEmulatorView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,7 +162,7 @@
         private System.Windows.Forms.Label Label_Text_Sentence;
         private System.Windows.Forms.Label Label_Text_Latitude;
         private System.Windows.Forms.Label Label_Text_Longitude;
-        private GMap.NET.WindowsForms.GMapControl gMapControl1;
+        private GMap.NET.WindowsForms.GMapControl gMap_Main;
         private System.Windows.Forms.Button button1;
     }
 }
