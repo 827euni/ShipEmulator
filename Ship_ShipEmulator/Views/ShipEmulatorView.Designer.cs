@@ -89,6 +89,7 @@
             this.Label_Text_PortGPS.Size = new System.Drawing.Size(71, 29);
             this.Label_Text_PortGPS.TabIndex = 8;
             this.Label_Text_PortGPS.Text = "2323";
+            this.Label_Text_PortGPS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Label_Explanation_PortGPS
             // 
@@ -109,7 +110,9 @@
             this.Label_Text_PortRPM.Name = "Label_Text_PortRPM";
             this.Label_Text_PortRPM.Size = new System.Drawing.Size(71, 29);
             this.Label_Text_PortRPM.TabIndex = 10;
+            this.Label_Text_PortRPM.Tag = "  ";
             this.Label_Text_PortRPM.Text = "2424";
+            this.Label_Text_PortRPM.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Label_Explanation_PortRPM
             // 
@@ -119,18 +122,19 @@
             this.Label_Explanation_PortRPM.Name = "Label_Explanation_PortRPM";
             this.Label_Explanation_PortRPM.Size = new System.Drawing.Size(105, 29);
             this.Label_Explanation_PortRPM.TabIndex = 9;
-            this.Label_Explanation_PortRPM.Text = "RMS포트";
+            this.Label_Explanation_PortRPM.Text = "RPM포트";
             this.Label_Explanation_PortRPM.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Label_Text_HZ
             // 
             this.Label_Text_HZ.AutoSize = true;
             this.Label_Text_HZ.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Text_HZ.Location = new System.Drawing.Point(751, 86);
+            this.Label_Text_HZ.Location = new System.Drawing.Point(755, 86);
             this.Label_Text_HZ.Name = "Label_Text_HZ";
             this.Label_Text_HZ.Size = new System.Drawing.Size(38, 29);
             this.Label_Text_HZ.TabIndex = 12;
             this.Label_Text_HZ.Text = "10";
+            this.Label_Text_HZ.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Label_Explanation_HZ
             // 
