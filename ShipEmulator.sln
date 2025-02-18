@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Center_ShipEmulator", "ShipEmulator\Center_ShipEmulator.csproj", "{1EBCE28D-EFDD-4BDF-A8FF-DF503A6CA928}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Center_ShipEmulator", "Center_ShipEmulator\Center_ShipEmulator.csproj", "{1EBCE28D-EFDD-4BDF-A8FF-DF503A6CA928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rpmGauge", "rpmGauge\rpmGauge.csproj", "{BA86DDF5-9A4F-4FBF-92C2-0035D0202414}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ship_ShipEmulator", "Ship_ShipEmulator\Ship_ShipEmulator.csproj", "{EAAA58C8-81A0-4049-8A1C-DBC05218480D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ship_ShipEmulator", "Ship_ShipEmulator\Ship_ShipEmulator.csproj", "{88E98C6F-09E7-421C-A760-61556CE0C8F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +17,10 @@ Global
 		{1EBCE28D-EFDD-4BDF-A8FF-DF503A6CA928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EBCE28D-EFDD-4BDF-A8FF-DF503A6CA928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EBCE28D-EFDD-4BDF-A8FF-DF503A6CA928}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA86DDF5-9A4F-4FBF-92C2-0035D0202414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA86DDF5-9A4F-4FBF-92C2-0035D0202414}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA86DDF5-9A4F-4FBF-92C2-0035D0202414}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA86DDF5-9A4F-4FBF-92C2-0035D0202414}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAAA58C8-81A0-4049-8A1C-DBC05218480D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAAA58C8-81A0-4049-8A1C-DBC05218480D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAAA58C8-81A0-4049-8A1C-DBC05218480D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAAA58C8-81A0-4049-8A1C-DBC05218480D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E98C6F-09E7-421C-A760-61556CE0C8F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E98C6F-09E7-421C-A760-61556CE0C8F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E98C6F-09E7-421C-A760-61556CE0C8F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E98C6F-09E7-421C-A760-61556CE0C8F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

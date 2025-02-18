@@ -87,6 +87,12 @@
     <Compile Include="Models\DatabaseHelper.cs" />
     <Compile Include="Models\RPM.cs" />
     <Compile Include="Models\GPS.cs" />
+    <Compile Include="Models\UserControl\rpmGauge.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Models\UserControl\rpmGauge.Designer.cs">
+      <DependentUpon>rpmGauge.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ShipEmulatorViewModel.cs" />
     <Compile Include="Views\ShipEmulatorView.cs">
       <SubType>Form</SubType>
