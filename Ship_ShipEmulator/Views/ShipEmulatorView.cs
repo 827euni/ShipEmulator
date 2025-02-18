@@ -19,12 +19,15 @@ namespace Ship_ShipEmulator
         private Thread mThread_Send;
         private Random random = new Random();
         private bool mIsRunning = false;
+        private bool mIsIncreasing;
         private int mGpsPort = 2323;
         private int mRpmPort = 2424;
         private int mHz = 10;
+        private int mRpm;
         public ShipEmulatorView()
         {
             InitializeComponent();
+            
         }
 
 
@@ -32,6 +35,7 @@ namespace Ship_ShipEmulator
         {
             if (!mIsRunning) 
             {
+                mRpm = random.Next(500, 1500);
                 int time = 1000 / mHz; // 1hz는 1초에 몇 번 진동하는지 여부.
                 mGpsUDPClient = new UdpClient();
                 mRpmUDLClient = new UdpClient();
@@ -50,6 +54,7 @@ namespace Ship_ShipEmulator
         {
             if (mIsRunning) 
             {
+                mRpm = 0;
                 mIsRunning = false;
                 mThread_Send.Join();
                 mGpsUDPClient.Close();
@@ -71,7 +76,24 @@ namespace Ship_ShipEmulator
         private int AddRPM()
         {
 
-            return random.Next(500, 1500);
+            if (mIsIncreasing)
+            {
+                mRpm += random.Next(0, 20);
+                if (mRpm >= 1500)
+                {
+                    mIsIncreasing = false;
+                }
+            }
+            else
+            {
+                mRpm -= random.Next(0, 20);
+                if (mRpm <= 500)
+                {
+                    mIsIncreasing = true;
+                }
+            }
+
+            return mRpm;
         }
 
         private void Send()
@@ -97,7 +119,7 @@ namespace Ship_ShipEmulator
 
                 //Console.WriteLine(Gps);
                 //Console.WriteLine(mGpsPort);
-                //Console.WriteLine(Rpm);
+                Console.WriteLine(Rpm);
                 //Console.WriteLine(mRpmPort);
                 //Console.WriteLine(mHz);
                 //Console.WriteLine(time);
