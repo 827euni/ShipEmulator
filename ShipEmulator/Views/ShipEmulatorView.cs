@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ShipEmulator
 {
-    public partial class Form1 : Form
+    public partial class ShipEmulatorView : Form
     {
-        public Form1()
+        public ShipEmulatorView()
         {
             InitializeComponent();
         }

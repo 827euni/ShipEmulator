@@ -1,6 +1,6 @@
-﻿namespace ShipEmulator
+﻿namespace rpmGauge
 {
-    partial class Form1
+    partial class rpm
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form 디자이너에서 생성한 코드
+        #region 구성 요소 디자이너에서 생성한 코드
 
         /// <summary>
         /// 디자이너 지원에 필요한 메서드입니다. 
@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // UserControl1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Name = "UserControl1";
+            this.Size = new System.Drawing.Size(683, 353);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
     }
 }
-
