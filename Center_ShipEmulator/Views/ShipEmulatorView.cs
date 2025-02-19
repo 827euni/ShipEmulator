@@ -45,7 +45,7 @@ namespace ShipEmulator
             gMap_Main.Position = new PointLatLng(37.2328660, 131.8654529);
             gMap_Main.MinZoom = 10;
             gMap_Main.MaxZoom = 50;
-            gMap_Main.Zoom = 17;
+            gMap_Main.Zoom = 14;
             gMap_Main.ShowCenter = false;
 
             DrawPoint = new GMapOverlay("point");
@@ -179,7 +179,7 @@ namespace ShipEmulator
 
         private void AddPoint(Decimal latitude, Decimal longitude)
         {
-            GMarkerGoogle point = new GMarkerGoogle(new PointLatLng((double)latitude, (double)longitude), GMarkerGoogleType.red_small);
+            DotMarker point = new DotMarker(new PointLatLng((double)latitude, (double)longitude), Color.Blue);
 
             DrawPoint.Markers.Add(point);
         }

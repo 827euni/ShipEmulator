@@ -66,8 +66,8 @@ namespace Ship_ShipEmulator
 
         private string AddGPS()
         {
-            double latitude = 37.2328660 + random.NextDouble() * 0.001;
-            double longitude = 131.8654529 + random.NextDouble() * 0.001;
+            double latitude = 37.2328660 + random.NextDouble() * 0.005;
+            double longitude = 131.8654529 + random.NextDouble() * 0.005;
             string time = DateTime.UtcNow.ToString("HHmmss.fff");
 
             int Degree_Latitude = (int)latitude;
@@ -78,7 +78,7 @@ namespace Ship_ShipEmulator
             double Minute_Longitude = (longitude - Degree_Longitude) * 60;
             string NMEA_Longitude = $"{Degree_Longitude}{Minute_Longitude:00.0000},E";
 
-            return $"$GPGGA,{time},{NMEA_Latitude},{NMEA_Longitude},1,03,23,23,M,23,M,0.0,0000*1";
+            return $"$GPGGA,{time},{NMEA_Latitude},{NMEA_Longitude},1,03,23,23,M,23,M,0.0,0000*23";
         }
 
 
