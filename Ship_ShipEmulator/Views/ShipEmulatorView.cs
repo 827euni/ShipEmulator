@@ -79,7 +79,7 @@ namespace Ship_ShipEmulator
             if (mIsIncreasing)
             {
                 mRpm += random.Next(0, 20);
-                if (mRpm >= 1500)
+                if (mRpm >= 1490)
                 {
                     mIsIncreasing = false;
                 }
@@ -87,7 +87,7 @@ namespace Ship_ShipEmulator
             else
             {
                 mRpm -= random.Next(0, 20);
-                if (mRpm <= 500)
+                if (mRpm <= 510)
                 {
                     mIsIncreasing = true;
                 }
