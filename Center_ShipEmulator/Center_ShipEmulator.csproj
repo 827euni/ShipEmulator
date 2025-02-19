@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\DatabaseHelper.cs" />
+    <Compile Include="Models\DotMarker.cs" />
     <Compile Include="Models\RPM.cs" />
     <Compile Include="Models\GPS.cs" />
     <Compile Include="Models\UserControl\rpmGauge.cs">

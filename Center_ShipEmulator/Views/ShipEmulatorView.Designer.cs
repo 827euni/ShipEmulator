@@ -87,9 +87,9 @@
             this.Label_Text_Latitude.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label_Text_Latitude.Location = new System.Drawing.Point(465, 116);
             this.Label_Text_Latitude.Name = "Label_Text_Latitude";
-            this.Label_Text_Latitude.Size = new System.Drawing.Size(150, 29);
+            this.Label_Text_Latitude.Size = new System.Drawing.Size(153, 29);
             this.Label_Text_Latitude.TabIndex = 4;
-            this.Label_Text_Latitude.Text = "37.481063도";
+            this.Label_Text_Latitude.Text = "37.232866도";
             // 
             // Label_Text_Longitude
             // 
@@ -97,9 +97,9 @@
             this.Label_Text_Longitude.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label_Text_Longitude.Location = new System.Drawing.Point(724, 116);
             this.Label_Text_Longitude.Name = "Label_Text_Longitude";
-            this.Label_Text_Longitude.Size = new System.Drawing.Size(164, 29);
+            this.Label_Text_Longitude.Size = new System.Drawing.Size(162, 29);
             this.Label_Text_Longitude.TabIndex = 5;
-            this.Label_Text_Longitude.Text = "126.879302도";
+            this.Label_Text_Longitude.Text = "131.865452도";
             // 
             // gMap_Main
             // 
