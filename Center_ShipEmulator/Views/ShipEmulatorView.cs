@@ -68,8 +68,8 @@ namespace ShipEmulator
             {
                 mIsRunning = false;
 
-                mGpsUDPClient.Close();
-                mRpmUDLClient.Close();
+                //mGpsUDPClient.Close();
+                //mRpmUDLClient.Close();
 
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
@@ -81,15 +81,22 @@ namespace ShipEmulator
             IPEndPoint point = new IPEndPoint(IPAddress.Any, mGpsPort);
             byte[] getBytes;
             string gpsData;
-            while (mIsRunning)
+            try
             {
-                getBytes = mGpsUDPClient.Receive(ref point);
-                gpsData = Encoding.UTF8.GetString(getBytes);
-
-                Invoke(new Action(() =>
+                while (mIsRunning)
                 {
-                    Label_Text_Sentence.Text = $"{gpsData}";
-                }));
+                    getBytes = mGpsUDPClient.Receive(ref point);
+                    gpsData = Encoding.UTF8.GetString(getBytes);
+
+                    Invoke(new Action(() =>
+                    {
+                        Label_Text_Sentence.Text = $"{gpsData}";
+                    }));
+                }
+            }
+            finally
+            {
+                mGpsUDPClient.Close();
             }
         }
 
@@ -99,17 +106,24 @@ namespace ShipEmulator
             byte[] getBytes;
             int rpmData;
 
-            while (mIsRunning)
+            try
             {
-                getBytes = mRpmUDLClient.Receive(ref point);
-                rpmData = BitConverter.ToInt32(getBytes, 0);
 
-                Invoke(new Action(() =>
+                while (mIsRunning)
                 {
-                    Label_Text_RPM.Text = $"{rpmData}";
-                }));
+                    getBytes = mRpmUDLClient.Receive(ref point);
+                    rpmData = BitConverter.ToInt32(getBytes, 0);
+
+                    Invoke(new Action(() =>
+                    {
+                        Label_Text_RPM.Text = $"{rpmData}";
+                    }));
+                }
             }
-            
+            finally
+            {
+                mRpmUDLClient.Close();
+            }   
         }
 
     }

@@ -143,7 +143,7 @@
             this.Button_Stop.Name = "Button_Stop";
             this.Button_Stop.Size = new System.Drawing.Size(118, 45);
             this.Button_Stop.TabIndex = 9;
-            this.Button_Stop.Text = "송신 종료";
+            this.Button_Stop.Text = "수신 종료";
             this.Button_Stop.UseVisualStyleBackColor = true;
             this.Button_Stop.Click += new System.EventHandler(this.Button_Stop_Click);
             // 
@@ -155,7 +155,7 @@
             this.Button_Start.Name = "Button_Start";
             this.Button_Start.Size = new System.Drawing.Size(118, 45);
             this.Button_Start.TabIndex = 8;
-            this.Button_Start.Text = "송신 시작";
+            this.Button_Start.Text = "수신 시작";
             this.Button_Start.UseVisualStyleBackColor = false;
             this.Button_Start.Click += new System.EventHandler(this.Button_Start_Click);
             // 
