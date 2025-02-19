@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GMap.NET;
 using GMap.NET.MapProviders;
+using ShipEmulator.Models;
 
 namespace ShipEmulator
 {
@@ -24,6 +25,8 @@ namespace ShipEmulator
         private bool mIsRunning = false;
         private int mGpsPort = 2323;
         private int mRpmPort = 2424;
+
+        DatabaseHelper mDatabaseHelper = new DatabaseHelper();
 
         public ShipEmulatorView()
         {
@@ -81,12 +84,24 @@ namespace ShipEmulator
             IPEndPoint point = new IPEndPoint(IPAddress.Any, mGpsPort);
             byte[] getBytes;
             string gpsData;
+            Decimal latitude;
+            Decimal longitude;
             try
             {
                 while (mIsRunning)
                 {
                     getBytes = mGpsUDPClient.Receive(ref point);
                     gpsData = Encoding.UTF8.GetString(getBytes);
+                    
+
+                    GPS gps = new GPS()
+                    {
+                        GPS_TIME = ChangeDateTime(gpsData.Split(',')[1]),
+                        GPS_Latitude = Decimal.Parse(gpsData.Split(',')[2]),
+                        GPS_Longitude = Decimal.Parse(gpsData.Split(',')[4])
+                    };
+
+                    mDatabaseHelper.AddGPS(gps);
 
                     Invoke(new Action(() =>
                     {
@@ -114,6 +129,8 @@ namespace ShipEmulator
                     getBytes = mRpmUDLClient.Receive(ref point);
                     rpmData = BitConverter.ToInt32(getBytes, 0);
 
+                    mDatabaseHelper.AddRPM(rpmData);
+
                     Invoke(new Action(() =>
                     {
                         Label_Text_RPM.Text = $"{rpmData}";
@@ -126,5 +143,26 @@ namespace ShipEmulator
             }   
         }
 
+        private DateTime ChangeDateTime(string time)
+        {
+            int hour = int.Parse(time.Substring(0, 2));
+            int minute = int.Parse(time.Substring(2, 2));
+            int second = int.Parse(time.Substring(4, 2));
+            int millisecond = 0;
+            if (time.Contains("."))
+            {
+                string[] timeParts = time.Split('.');
+                if (timeParts.Length > 1)
+                {
+                    millisecond = int.Parse(timeParts[1].Substring(0, 3));
+                }
+            }
+            DateTime changeTime = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day,
+                                                    hour, minute, second, millisecond, DateTimeKind.Utc);
+
+            return changeTime;
+            }
+
+        }
     }
-}
+

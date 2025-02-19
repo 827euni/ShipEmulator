@@ -31,14 +31,14 @@ namespace ShipEmulator.Models
             }
         }
 
-        public void AddRPM(RPM rpm)
+        public void AddRPM(int rpm)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO RPM (RPM_TIME, RPM_RPM VALUES (@RPM_TIME, @RPM_RPM)";
+                string query = "INSERT INTO RPM (RPM_TIME, RPM_RPM) VALUES (@RPM_TIME, @RPM_RPM)";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@RPM_TIME", DateTime.UtcNow);
-                command.Parameters.AddWithValue("@RPM_RPM", rpm.RPM_RPM);
+                command.Parameters.AddWithValue("@RPM_TIME",DateTime.UtcNow);
+                command.Parameters.AddWithValue("@RPM_RPM", rpm);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -48,4 +48,4 @@ namespace ShipEmulator.Models
 
 
     }
-}
+
