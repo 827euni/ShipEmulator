@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 using ShipEmulator.Models;
 
 namespace ShipEmulator
@@ -28,6 +29,8 @@ namespace ShipEmulator
         private int mRpmPort = 2424;
 
         DatabaseHelper mDatabaseHelper = new DatabaseHelper();
+        private List<PointLatLng> pointsList;
+        GMapOverlay DrawPoint;
 
         public ShipEmulatorView()
         {
@@ -38,10 +41,17 @@ namespace ShipEmulator
         {
             // 구글 맵을 불러와서 화면에 로드하는 함수
             gMap_Main.MapProvider = GMapProviders.GoogleMap;
+            gMap_Main.DragButton = MouseButtons.Left;
             gMap_Main.Position = new PointLatLng(37.2328660, 131.8654529);
             gMap_Main.MinZoom = 10;
-            gMap_Main.MaxZoom = 30;
-            gMap_Main.Zoom = 13;
+            gMap_Main.MaxZoom = 50;
+            gMap_Main.Zoom = 17;
+            gMap_Main.ShowCenter = false;
+
+            DrawPoint = new GMapOverlay("point");
+            gMap_Main.Overlays.Add(DrawPoint);
+
+            pointsList = new List<PointLatLng>();
         }
 
         private void Button_Start_Click(object sender, EventArgs e)
@@ -74,6 +84,8 @@ namespace ShipEmulator
 
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
+
+                pointsList.Clear();
             }
         }
 
@@ -82,28 +94,32 @@ namespace ShipEmulator
             IPEndPoint point = new IPEndPoint(IPAddress.Any, mGpsPort);
             byte[] getBytes;
             string gpsData;
+            Decimal Latitude;
+            Decimal Longitude;
             try
             {
                 while (mIsRunning)
                 {
                     getBytes = mGpsUDPClient.Receive(ref point);
                     gpsData = Encoding.UTF8.GetString(getBytes);
-
+                    Latitude = ChangeGPSLoacation(gpsData.Split(',')[2], gpsData.Split(',')[3]);
+                    Longitude = ChangeGPSLoacation(gpsData.Split(',')[4], gpsData.Split(',')[5]);
 
                     GPS gps = new GPS()
                     {
                         GPS_TIME = ChangeDateTime(gpsData.Split(',')[1]),
-                        GPS_Latitude = ChangeGPSLoacation(gpsData.Split(',')[2], gpsData.Split(',')[3]),
-                        GPS_Longitude = ChangeGPSLoacation(gpsData.Split(',')[4], gpsData.Split(',')[5])
+                        GPS_Latitude = Latitude,
+                        GPS_Longitude = Longitude
                     };
 
                     mDatabaseHelper.AddGPS(gps);
+                    AddPoint(Latitude, Longitude);
 
                     Invoke(new Action(() =>
                     {
                         Label_Text_Sentence.Text = $"{gpsData}";
-                        Label_Text_Latitude.Text = $"{ChangeGPSLoacation(gpsData.Split(',')[2], gpsData.Split(',')[3]).ToString("F6")}도";
-                        Label_Text_Longitude.Text = $"{ChangeGPSLoacation(gpsData.Split(',')[4], gpsData.Split(',')[5]).ToString("F6")}도";
+                        Label_Text_Latitude.Text = $"{Latitude.ToString("F6")}도";
+                        Label_Text_Longitude.Text = $"{Longitude.ToString("F6")}도";
                     }));
                 }
             }
@@ -161,10 +177,15 @@ namespace ShipEmulator
             return changeTime;
         }
 
-        public void AddPoint(GMapControl gmap, double lat, double lng)
+        private void AddPoint(Decimal latitude, Decimal longitude)
         {
+            GMarkerGoogle point = new GMarkerGoogle(new PointLatLng((double)latitude, (double)longitude), GMarkerGoogleType.red_small);
 
+            DrawPoint.Markers.Add(point);
         }
+
+
+
 
         private Decimal ChangeGPSLoacation(string location, string direction)
         {
