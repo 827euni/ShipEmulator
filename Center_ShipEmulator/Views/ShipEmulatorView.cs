@@ -85,7 +85,7 @@ namespace ShipEmulator
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
 
-                pointsList.Clear();
+
             }
         }
 
@@ -126,6 +126,7 @@ namespace ShipEmulator
             finally
             {
                 mGpsUDPClient.Close();
+                DrawPoint.Markers.Clear();
             }
         }
 

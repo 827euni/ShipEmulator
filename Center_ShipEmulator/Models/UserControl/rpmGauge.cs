@@ -12,9 +12,14 @@ namespace ShipEmulator
 {
     public partial class rpmGauge : UserControl
     {
+
+        int mMinRPM = 500;
+        int mMaxRPM = 1500;
+        int rpm;
         public rpmGauge()
         {
             InitializeComponent();
+            DoubleBuffered = true;
         }
     }
 }
