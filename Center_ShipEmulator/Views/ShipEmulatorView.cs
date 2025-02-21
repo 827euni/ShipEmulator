@@ -164,7 +164,6 @@ namespace ShipEmulator
                     mGpsUDPClient.Close();
                     mGpsUDPClient = null;
                 }
-                Console.WriteLine(mGpsPort);
                 mGpsUDPClient = new UdpClient(mGpsPort);
             }
         }
@@ -178,7 +177,6 @@ namespace ShipEmulator
                     mRpmUDLClient.Close();
                     mRpmUDLClient = null;
                 }
-                Console.WriteLine(mRpmPort);
                 mRpmUDLClient = new UdpClient(mRpmPort);
                
             }
