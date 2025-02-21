@@ -156,7 +156,6 @@ namespace Ship_ShipEmulator
                 Label_Text_PortRPM.Text = mRpmPort.ToString();
                 using (UdpClient udpClient = new UdpClient())
                 {
-                    udpClient.EnableBroadcast = true;
                     byte[] RPMPort = BitConverter.GetBytes(mRpmPort);
                     udpClient.Send(RPMPort, RPMPort.Length, "127.0.0.1", 50506);
                 }
