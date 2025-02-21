@@ -123,7 +123,7 @@
             this.gMap_Main.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMap_Main.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMap_Main.ShowTileGridLines = false;
-            this.gMap_Main.Size = new System.Drawing.Size(1024, 332);
+            this.gMap_Main.Size = new System.Drawing.Size(1024, 371);
             this.gMap_Main.TabIndex = 6;
             this.gMap_Main.Zoom = 0D;
             // 
@@ -154,7 +154,7 @@
             // 
             this.Label_Text_RPM.AutoSize = true;
             this.Label_Text_RPM.Font = new System.Drawing.Font("Pretendard Variable Black", 75F, System.Drawing.FontStyle.Bold);
-            this.Label_Text_RPM.Location = new System.Drawing.Point(476, 656);
+            this.Label_Text_RPM.Location = new System.Drawing.Point(472, 701);
             this.Label_Text_RPM.Name = "Label_Text_RPM";
             this.Label_Text_RPM.Size = new System.Drawing.Size(291, 119);
             this.Label_Text_RPM.TabIndex = 10;
@@ -163,9 +163,9 @@
             // 
             // Gauge
             // 
-            this.Gauge.Location = new System.Drawing.Point(423, 524);
+            this.Gauge.Location = new System.Drawing.Point(419, 569);
             this.Gauge.Name = "Gauge";
-            this.Gauge.Size = new System.Drawing.Size(416, 427);
+            this.Gauge.Size = new System.Drawing.Size(416, 322);
             this.Gauge.TabIndex = 11;
             // 
             // ShipEmulatorView
