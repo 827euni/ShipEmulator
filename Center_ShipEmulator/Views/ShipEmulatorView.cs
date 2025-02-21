@@ -22,6 +22,8 @@ namespace ShipEmulator
     {
         private UdpClient mGpsUDPClient;
         private UdpClient mRpmUDLClient;
+        private UdpClient mChangePortGPS;
+        private UdpClient mChangePortRPM;
         private Thread mThread_Gps;
         private Thread mThread_Rpm;
         private bool mIsRunning = false;
@@ -96,15 +98,17 @@ namespace ShipEmulator
 
         private void GetChangeGPSPort()
         {
-
-            UdpClient udpClient= new UdpClient(50505);
+            if (mChangePortGPS == null)
+            {
+                mChangePortGPS = new UdpClient(50505);
+            }
             IPEndPoint point = new IPEndPoint(IPAddress.Any, 50505);
             byte[] getBytes;
             int GPSPortData;
 
             while (true) // 송신, 수신 여부와 상관없이 반드시 포트 변경은 감지해야함.
             {
-                getBytes = udpClient.Receive(ref point);
+                getBytes = mChangePortGPS.Receive(ref point);
                 GPSPortData = BitConverter.ToInt32(getBytes, 0);
 
                 Invoke(new Action(() =>
@@ -112,9 +116,11 @@ namespace ShipEmulator
                     if (mGpsPort != GPSPortData)
                     {
                         mGpsPort = GPSPortData;
+                        Label_Text_PortGPS.Text = mGpsPort.ToString();
                         RestartGps();
                     }
                 }));
+
             }
         }
 
@@ -122,14 +128,18 @@ namespace ShipEmulator
 
         private void GetGhangeRPMPort()
         {
-            UdpClient udpClient = new UdpClient(50506);
+
+            if (mChangePortRPM == null)
+            {
+                mChangePortRPM = new UdpClient(50506);
+            }
             IPEndPoint point = new IPEndPoint(IPAddress.Any, 50506);
             byte[] getBytes;
             int RPMPortData;
 
             while (true) // 송신, 수신 여부와 상관없이 반드시 포트 변경은 감지해야함.
             {
-                getBytes = udpClient.Receive(ref point);
+                getBytes = mChangePortRPM.Receive(ref point);
                 RPMPortData = BitConverter.ToInt32(getBytes, 0);
 
                 Invoke(new Action(() =>
@@ -137,9 +147,11 @@ namespace ShipEmulator
                     if (mRpmPort != RPMPortData)
                     {
                         mRpmPort = RPMPortData;
+                        Label_Text_PortRPM.Text = mRpmPort.ToString();
                         RestartRPM();
                     }
                 }));
+
             }
         }
 
