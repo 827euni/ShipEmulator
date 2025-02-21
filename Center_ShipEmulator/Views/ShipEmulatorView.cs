@@ -47,7 +47,7 @@ namespace ShipEmulator
             gMap_Main.Position = new PointLatLng(37.2328660, 131.8654529);
             gMap_Main.MinZoom = 10;
             gMap_Main.MaxZoom = 50;
-            gMap_Main.Zoom = 14;
+            gMap_Main.Zoom = 12;
             gMap_Main.ShowCenter = false;
 
             DrawPoint = new GMapOverlay("point");
@@ -117,9 +117,11 @@ namespace ShipEmulator
 
                     mDatabaseHelper.AddGPS(gps);
                     AddPoint(Latitude, Longitude);
+                    
 
                     Invoke(new Action(() =>
                     {
+                        gMap_Main.Position = new PointLatLng((double)Latitude, (double)Longitude);
                         Label_Text_Sentence.Text = $"{gpsData}";
                         Label_Text_Latitude.Text = $"{Latitude.ToString("F6")}도";
                         Label_Text_Longitude.Text = $"{Longitude.ToString("F6")}도";
