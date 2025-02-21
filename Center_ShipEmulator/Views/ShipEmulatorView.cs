@@ -32,6 +32,8 @@ namespace ShipEmulator
         private List<PointLatLng> pointsList;
         GMapOverlay DrawPoint;
 
+
+
         public ShipEmulatorView()
         {
             InitializeComponent();
@@ -59,6 +61,7 @@ namespace ShipEmulator
             if (!mIsRunning)
             {
                 mIsRunning = true;
+                DrawPoint.Markers.Clear();
                 mGpsUDPClient = new UdpClient(mGpsPort);
                 mRpmUDLClient = new UdpClient(mRpmPort);
 
@@ -85,7 +88,7 @@ namespace ShipEmulator
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
 
-                pointsList.Clear();
+
             }
         }
 
@@ -126,6 +129,7 @@ namespace ShipEmulator
             finally
             {
                 mGpsUDPClient.Close();
+                
             }
         }
 
@@ -142,13 +146,17 @@ namespace ShipEmulator
                 {
                     getBytes = mRpmUDLClient.Receive(ref point);
                     rpmData = BitConverter.ToInt32(getBytes, 0);
-
                     mDatabaseHelper.AddRPM(rpmData);
+                    Gauge.rpm = rpmData;
+
+                    
 
                     Invoke(new Action(() =>
                     {
-                        Label_Text_RPM.Text = $"{rpmData}";
+                        Label_Text_RPM.Text = $"{rpmData.ToString("0000")}";
                     }));
+
+                    Gauge.rpm = rpmData;
                 }
             }
             finally
