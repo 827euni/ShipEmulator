@@ -219,7 +219,6 @@ namespace ShipEmulator
 
                         Invoke(new Action(() =>
                         {
-                            gMap_Main.Position = new PointLatLng((double)Latitude, (double)Longitude);
                             Label_Text_Sentence.Text = $"{gpsData}";
                             Label_Text_Latitude.Text = $"{Latitude.ToString("F6")}도";
                             Label_Text_Longitude.Text = $"{Longitude.ToString("F6")}도";
