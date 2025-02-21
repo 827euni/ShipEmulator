@@ -161,8 +161,16 @@ namespace Ship_ShipEmulator
         {
             if (TextBox_Change_HZ.Text != "")
             {
-                mHz = int.Parse(TextBox_Change_HZ.Text);
-                Label_Text_HZ.Text = mHz.ToString();
+
+                if(int.Parse(TextBox_Change_HZ.Text) >= 1 && int.Parse(TextBox_Change_HZ.Text) <= 10)
+                {
+                    mHz = int.Parse(TextBox_Change_HZ.Text);
+                    Label_Text_HZ.Text = mHz.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("1부터 10까지의 값을 작성해주세요.");
+                }
             }
         }
 
