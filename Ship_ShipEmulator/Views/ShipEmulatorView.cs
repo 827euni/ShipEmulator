@@ -142,9 +142,8 @@ namespace Ship_ShipEmulator
                 Label_Text_PortGPS.Text = mGpsPort.ToString();
                 using (UdpClient udpClient = new UdpClient())
                 {
-                    udpClient.EnableBroadcast = true;
                     byte[] GPSPort = BitConverter.GetBytes(mGpsPort);
-                    udpClient.Send(GPSPort, GPSPort.Length, new IPEndPoint(IPAddress.Broadcast, 50505));
+                    udpClient.Send(GPSPort, GPSPort.Length, "127.0.0.1", 50505);
                 }
             }
         }
@@ -159,7 +158,7 @@ namespace Ship_ShipEmulator
                 {
                     udpClient.EnableBroadcast = true;
                     byte[] RPMPort = BitConverter.GetBytes(mRpmPort);
-                    udpClient.Send(RPMPort, RPMPort.Length, new IPEndPoint(IPAddress.Broadcast, 50506));
+                    udpClient.Send(RPMPort, RPMPort.Length, "127.0.0.1", 50506);
                 }
             }
         }
