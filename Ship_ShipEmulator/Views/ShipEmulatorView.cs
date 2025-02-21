@@ -129,7 +129,7 @@ namespace Ship_ShipEmulator
 
                 //Console.WriteLine(Gps);
                 //Console.WriteLine(mGpsPort);
-                Console.WriteLine(Rpm);
+                //Console.WriteLine(Rpm);
                 //Console.WriteLine(mRpmPort);
                 //Console.WriteLine(mHz);
                 //Console.WriteLine(time);

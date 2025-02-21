@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "rpmGauge";
-            this.Size = new System.Drawing.Size(808, 365);
+            this.Size = new System.Drawing.Size(897, 832);
             this.ResumeLayout(false);
 
         }

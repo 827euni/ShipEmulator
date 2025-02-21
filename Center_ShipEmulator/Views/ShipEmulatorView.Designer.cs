@@ -35,10 +35,10 @@
             this.Label_Text_Latitude = new System.Windows.Forms.Label();
             this.Label_Text_Longitude = new System.Windows.Forms.Label();
             this.gMap_Main = new GMap.NET.WindowsForms.GMapControl();
-            this.button1 = new System.Windows.Forms.Button();
             this.Button_Stop = new System.Windows.Forms.Button();
             this.Button_Start = new System.Windows.Forms.Button();
             this.Label_Text_RPM = new System.Windows.Forms.Label();
+            this.Gauge = new ShipEmulator.rpmGauge();
             this.SuspendLayout();
             // 
             // Label_Explanation_Sentence
@@ -127,15 +127,6 @@
             this.gMap_Main.TabIndex = 6;
             this.gMap_Main.Zoom = 0D;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(108, 519);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(1024, 202);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // Button_Stop
             // 
             this.Button_Stop.Font = new System.Drawing.Font("Pretendard Variable ExtraBold", 16F, System.Drawing.FontStyle.Bold);
@@ -162,22 +153,29 @@
             // Label_Text_RPM
             // 
             this.Label_Text_RPM.AutoSize = true;
-            this.Label_Text_RPM.Font = new System.Drawing.Font("Pretendard Variable Black", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Text_RPM.Location = new System.Drawing.Point(556, 539);
+            this.Label_Text_RPM.Font = new System.Drawing.Font("Pretendard Variable Black", 75F, System.Drawing.FontStyle.Bold);
+            this.Label_Text_RPM.Location = new System.Drawing.Point(476, 656);
             this.Label_Text_RPM.Name = "Label_Text_RPM";
-            this.Label_Text_RPM.Size = new System.Drawing.Size(131, 58);
+            this.Label_Text_RPM.Size = new System.Drawing.Size(291, 119);
             this.Label_Text_RPM.TabIndex = 10;
-            this.Label_Text_RPM.Text = "1224";
+            this.Label_Text_RPM.Text = "0559";
+            this.Label_Text_RPM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Gauge
+            // 
+            this.Gauge.Location = new System.Drawing.Point(423, 524);
+            this.Gauge.Name = "Gauge";
+            this.Gauge.Size = new System.Drawing.Size(416, 427);
+            this.Gauge.TabIndex = 11;
             // 
             // ShipEmulatorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1254, 689);
+            this.ClientSize = new System.Drawing.Size(1254, 903);
             this.Controls.Add(this.Label_Text_RPM);
             this.Controls.Add(this.Button_Stop);
             this.Controls.Add(this.Button_Start);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.gMap_Main);
             this.Controls.Add(this.Label_Text_Longitude);
             this.Controls.Add(this.Label_Text_Latitude);
@@ -185,6 +183,7 @@
             this.Controls.Add(this.Label_Explanation_Latitude);
             this.Controls.Add(this.Label_Explanation_Longitude);
             this.Controls.Add(this.Label_Explanation_Sentence);
+            this.Controls.Add(this.Gauge);
             this.Name = "ShipEmulatorView";
             this.Text = "ShipEmulator";
             this.Load += new System.EventHandler(this.ShipEmulatorView_Load);
@@ -202,10 +201,10 @@
         private System.Windows.Forms.Label Label_Text_Latitude;
         private System.Windows.Forms.Label Label_Text_Longitude;
         private GMap.NET.WindowsForms.GMapControl gMap_Main;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button Button_Stop;
         private System.Windows.Forms.Button Button_Start;
         private System.Windows.Forms.Label Label_Text_RPM;
+        private rpmGauge Gauge;
     }
 }
 
