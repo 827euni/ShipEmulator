@@ -77,9 +77,9 @@
             this.Label_Text_Sentence.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label_Text_Sentence.Location = new System.Drawing.Point(223, 75);
             this.Label_Text_Sentence.Name = "Label_Text_Sentence";
-            this.Label_Text_Sentence.Size = new System.Drawing.Size(909, 29);
+            this.Label_Text_Sentence.Size = new System.Drawing.Size(908, 29);
             this.Label_Text_Sentence.TabIndex = 3;
-            this.Label_Text_Sentence.Text = "$GPGGA,114455.532,3735.0079,N,12701.6446,E,1,03,7.9,48.8,M,19.6,M,0.0,0000*48";
+            this.Label_Text_Sentence.Text = "$GPGGA,114455.532,3735.0079,N,12701.6446,E,1,03,7.9,48.8,M,19.6,M,0.0,0000*23";
             // 
             // Label_Text_Latitude
             // 

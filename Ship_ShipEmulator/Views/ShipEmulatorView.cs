@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ship_ShipEmulator
@@ -145,6 +140,12 @@ namespace Ship_ShipEmulator
             {
                 mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
                 Label_Text_PortGPS.Text = mGpsPort.ToString();
+                using (UdpClient udpClient = new UdpClient())
+                {
+                    udpClient.EnableBroadcast = true;
+                    byte[] GPSPort = BitConverter.GetBytes(mGpsPort);
+                    udpClient.Send(GPSPort, GPSPort.Length, new IPEndPoint(IPAddress.Broadcast, 50505));
+                }
             }
         }
 
@@ -154,6 +155,12 @@ namespace Ship_ShipEmulator
             {
                 mRpmPort = int.Parse(TextBox_Change_portRPM.Text);
                 Label_Text_PortRPM.Text = mRpmPort.ToString();
+                using (UdpClient udpClient = new UdpClient())
+                {
+                    udpClient.EnableBroadcast = true;
+                    byte[] RPMPort = BitConverter.GetBytes(mRpmPort);
+                    udpClient.Send(RPMPort, RPMPort.Length, new IPEndPoint(IPAddress.Broadcast, 50506));
+                }
             }
         }
 
