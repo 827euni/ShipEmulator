@@ -119,17 +119,10 @@ namespace Ship_ShipEmulator
                 Rpm = AddRPM();
 
                 GpsData = Encoding.UTF8.GetBytes(Gps);
-                RpmData = BitConverter.GetBytes(Rpm); // int값을 보내려면 이렇게 보내야함. 이후 수신에서 BitConverter.ToInt32(receivedBytes, 0); 로 받을 수 있음 
+                RpmData = BitConverter.GetBytes(Rpm);
 
                 mGpsUDPClient.Send(GpsData, GpsData.Length, "127.0.0.1", mGpsPort);
                 mRpmUDLClient.Send(RpmData, RpmData.Length, "127.0.0.1", mRpmPort);
-
-                //Console.WriteLine(Gps);
-                //Console.WriteLine(mGpsPort);
-                //Console.WriteLine(Rpm);
-                //Console.WriteLine(mRpmPort);
-                //Console.WriteLine(mHz);
-                //Console.WriteLine(time);
                 Thread.Sleep(time);
             }
         }

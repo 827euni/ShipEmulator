@@ -164,7 +164,6 @@ namespace ShipEmulator
                     mGpsUDPClient.Close();
                     mGpsUDPClient = null;
                 }
-                Console.WriteLine(mGpsPort);
                 mGpsUDPClient = new UdpClient(mGpsPort);
             }
         }
@@ -178,7 +177,6 @@ namespace ShipEmulator
                     mRpmUDLClient.Close();
                     mRpmUDLClient = null;
                 }
-                Console.WriteLine(mRpmPort);
                 mRpmUDLClient = new UdpClient(mRpmPort);
                
             }
@@ -221,7 +219,6 @@ namespace ShipEmulator
 
                         Invoke(new Action(() =>
                         {
-                            gMap_Main.Position = new PointLatLng((double)Latitude, (double)Longitude);
                             Label_Text_Sentence.Text = $"{gpsData}";
                             Label_Text_Latitude.Text = $"{Latitude.ToString("F6")}도";
                             Label_Text_Longitude.Text = $"{Longitude.ToString("F6")}도";
