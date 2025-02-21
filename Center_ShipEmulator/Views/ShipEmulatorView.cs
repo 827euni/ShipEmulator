@@ -22,6 +22,8 @@ namespace ShipEmulator
     {
         private UdpClient mGpsUDPClient;
         private UdpClient mRpmUDLClient;
+        private UdpClient mChangePortGPS;
+        private UdpClient mChangePortRPM;
         private Thread mThread_Gps;
         private Thread mThread_Rpm;
         private bool mIsRunning = false;
@@ -62,17 +64,21 @@ namespace ShipEmulator
             {
                 mIsRunning = true;
                 DrawPoint.Markers.Clear();
-                mGpsUDPClient = new UdpClient(mGpsPort);
-                mRpmUDLClient = new UdpClient(mRpmPort);
+                Thread ChangeGpsPort = new Thread(GetChangeGPSPort);
+                Thread ChangeRPMPort = new Thread(GetGhangeRPMPort);
 
                 mThread_Gps = new Thread(GetGpsData);
                 mThread_Rpm = new Thread(GetRpmData);
 
                 mThread_Gps.IsBackground = true;
                 mThread_Rpm.IsBackground = true;
+                ChangeGpsPort.IsBackground = true;
+                ChangeRPMPort.IsBackground = true;
 
                 mThread_Gps.Start();
                 mThread_Rpm.Start();
+                ChangeGpsPort.Start();
+                ChangeRPMPort.Start();
 
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
@@ -87,8 +93,94 @@ namespace ShipEmulator
 
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
+            }
+        }
+
+        private void GetChangeGPSPort()
+        {
+            if (mChangePortGPS == null)
+            {
+                mChangePortGPS = new UdpClient(50505);
+            }
+            IPEndPoint point = new IPEndPoint(IPAddress.Any, 50505);
+            byte[] getBytes;
+            int GPSPortData;
+
+            while (true) // 송신, 수신 여부와 상관없이 반드시 포트 변경은 감지해야함.
+            {
+                getBytes = mChangePortGPS.Receive(ref point);
+                GPSPortData = BitConverter.ToInt32(getBytes, 0);
+
+                Invoke(new Action(() =>
+                {
+                    if (mGpsPort != GPSPortData)
+                    {
+                        mGpsPort = GPSPortData;
+                        Label_Text_PortGPS.Text = mGpsPort.ToString();
+                        RestartGps();
+                    }
+                }));
+
+            }
+        }
 
 
+
+        private void GetGhangeRPMPort()
+        {
+
+            if (mChangePortRPM == null)
+            {
+                mChangePortRPM = new UdpClient(50506);
+            }
+            IPEndPoint point = new IPEndPoint(IPAddress.Any, 50506);
+            byte[] getBytes;
+            int RPMPortData;
+
+            while (true) // 송신, 수신 여부와 상관없이 반드시 포트 변경은 감지해야함.
+            {
+                getBytes = mChangePortRPM.Receive(ref point);
+                RPMPortData = BitConverter.ToInt32(getBytes, 0);
+
+                Invoke(new Action(() =>
+                {
+                    if (mRpmPort != RPMPortData)
+                    {
+                        mRpmPort = RPMPortData;
+                        Label_Text_PortRPM.Text = mRpmPort.ToString();
+                        RestartRPM();
+                    }
+                }));
+
+            }
+        }
+
+        private void RestartGps()
+        {
+            if (mIsRunning)
+            {
+                if (mGpsUDPClient != null)
+                {
+                    mGpsUDPClient.Close();
+                    mGpsUDPClient = null;
+                }
+                Console.WriteLine(mGpsPort);
+                mGpsUDPClient = new UdpClient(mGpsPort);
+            }
+        }
+
+        private void RestartRPM()
+        {
+            if (mIsRunning)
+            {
+                if (mRpmUDLClient != null)
+                {
+                    mRpmUDLClient.Close();
+                    mRpmUDLClient = null;
+                }
+                Console.WriteLine(mRpmPort);
+                mRpmUDLClient = new UdpClient(mRpmPort);
+               
             }
         }
 
@@ -99,41 +191,59 @@ namespace ShipEmulator
             string gpsData;
             Decimal Latitude;
             Decimal Longitude;
+
             try
             {
+                if(mGpsUDPClient == null)
+                {
+                    mGpsUDPClient = new UdpClient(mGpsPort);
+                }
+                mGpsUDPClient.Client.ReceiveTimeout = 1000;
+
                 while (mIsRunning)
                 {
-                    getBytes = mGpsUDPClient.Receive(ref point);
-                    gpsData = Encoding.UTF8.GetString(getBytes);
-                    Latitude = ChangeGPSLoacation(gpsData.Split(',')[2], gpsData.Split(',')[3]);
-                    Longitude = ChangeGPSLoacation(gpsData.Split(',')[4], gpsData.Split(',')[5]);
-
-                    GPS gps = new GPS()
+                    try
                     {
-                        GPS_TIME = ChangeDateTime(gpsData.Split(',')[1]),
-                        GPS_Latitude = Latitude,
-                        GPS_Longitude = Longitude
-                    };
+                        getBytes = mGpsUDPClient.Receive(ref point);
+                        gpsData = Encoding.UTF8.GetString(getBytes);
+                        Latitude = ChangeGPSLoacation(gpsData.Split(',')[2], gpsData.Split(',')[3]);
+                        Longitude = ChangeGPSLoacation(gpsData.Split(',')[4], gpsData.Split(',')[5]);
 
-                    mDatabaseHelper.AddGPS(gps);
-                    AddPoint(Latitude, Longitude);
-                    
+                        GPS gps = new GPS()
+                        {
+                            GPS_TIME = ChangeDateTime(gpsData.Split(',')[1]),
+                            GPS_Latitude = Latitude,
+                            GPS_Longitude = Longitude
+                        };
 
-                    Invoke(new Action(() =>
+                        mDatabaseHelper.AddGPS(gps);
+                        AddPoint(Latitude, Longitude);
+
+                        Invoke(new Action(() =>
+                        {
+                            gMap_Main.Position = new PointLatLng((double)Latitude, (double)Longitude);
+                            Label_Text_Sentence.Text = $"{gpsData}";
+                            Label_Text_Latitude.Text = $"{Latitude.ToString("F6")}도";
+                            Label_Text_Longitude.Text = $"{Longitude.ToString("F6")}도";
+                        }));
+
+                    }
+                    catch (SocketException ex)
                     {
-                        gMap_Main.Position = new PointLatLng((double)Latitude, (double)Longitude);
-                        Label_Text_Sentence.Text = $"{gpsData}";
-                        Label_Text_Latitude.Text = $"{Latitude.ToString("F6")}도";
-                        Label_Text_Longitude.Text = $"{Longitude.ToString("F6")}도";
-                    }));
+                        if (ex.SocketErrorCode == SocketError.TimedOut)
+                        {
+                            continue;
+                        }
+                    }
                 }
             }
             finally
             {
                 mGpsUDPClient.Close();
-                
+                mGpsUDPClient = null;
             }
         }
+
 
         private void GetRpmData()
         {
@@ -143,27 +253,39 @@ namespace ShipEmulator
 
             try
             {
-
+                mRpmUDLClient = new UdpClient(mRpmPort);
+                mRpmUDLClient.Client.ReceiveTimeout = 1000;
                 while (mIsRunning)
                 {
-                    getBytes = mRpmUDLClient.Receive(ref point);
-                    rpmData = BitConverter.ToInt32(getBytes, 0);
-                    mDatabaseHelper.AddRPM(rpmData);
-                    Gauge.rpm = rpmData;
-
-                    
-
-                    Invoke(new Action(() =>
+                    try
                     {
-                        Label_Text_RPM.Text = $"{rpmData.ToString("0000")}";
-                    }));
+                        getBytes = mRpmUDLClient.Receive(ref point);
+                        rpmData = BitConverter.ToInt32(getBytes, 0);
+                        mDatabaseHelper.AddRPM(rpmData);
+                        Gauge.rpm = rpmData;
 
-                    Gauge.rpm = rpmData;
+
+
+                        Invoke(new Action(() =>
+                        {
+                            Label_Text_RPM.Text = $"{rpmData.ToString("0000")}";
+                        }));
+
+                        Gauge.rpm = rpmData;
+                    }
+                    catch (SocketException ex)
+                    {
+                        if (ex.SocketErrorCode == SocketError.TimedOut)
+                        {
+                            continue;
+                        }
+                    }
                 }
             }
             finally
             {
                 mRpmUDLClient.Close();
+                mRpmUDLClient = null;
             }
         }
 
@@ -193,9 +315,6 @@ namespace ShipEmulator
 
             DrawPoint.Markers.Add(point);
         }
-
-
-
 
         private Decimal ChangeGPSLoacation(string location, string direction)
         {

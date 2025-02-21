@@ -251,7 +251,7 @@
             this.Controls.Add(this.Button_Stop);
             this.Controls.Add(this.Button_Start);
             this.Name = "ShipEmulatorView";
-            this.Text = "Form1";
+            this.Text = "SHIP";
             this.ResumeLayout(false);
             this.PerformLayout();
 

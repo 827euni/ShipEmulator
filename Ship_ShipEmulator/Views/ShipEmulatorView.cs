@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ship_ShipEmulator
@@ -145,6 +140,11 @@ namespace Ship_ShipEmulator
             {
                 mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
                 Label_Text_PortGPS.Text = mGpsPort.ToString();
+                using (UdpClient udpClient = new UdpClient())
+                {
+                    byte[] GPSPort = BitConverter.GetBytes(mGpsPort);
+                    udpClient.Send(GPSPort, GPSPort.Length, "127.0.0.1", 50505);
+                }
             }
         }
 
@@ -154,6 +154,11 @@ namespace Ship_ShipEmulator
             {
                 mRpmPort = int.Parse(TextBox_Change_portRPM.Text);
                 Label_Text_PortRPM.Text = mRpmPort.ToString();
+                using (UdpClient udpClient = new UdpClient())
+                {
+                    byte[] RPMPort = BitConverter.GetBytes(mRpmPort);
+                    udpClient.Send(RPMPort, RPMPort.Length, "127.0.0.1", 50506);
+                }
             }
         }
 
@@ -161,8 +166,16 @@ namespace Ship_ShipEmulator
         {
             if (TextBox_Change_HZ.Text != "")
             {
-                mHz = int.Parse(TextBox_Change_HZ.Text);
-                Label_Text_HZ.Text = mHz.ToString();
+
+                if(int.Parse(TextBox_Change_HZ.Text) >= 1 && int.Parse(TextBox_Change_HZ.Text) <= 10)
+                {
+                    mHz = int.Parse(TextBox_Change_HZ.Text);
+                    Label_Text_HZ.Text = mHz.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("1부터 10까지의 값을 작성해주세요.");
+                }
             }
         }
 
