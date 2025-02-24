@@ -32,7 +32,7 @@ namespace ShipEmulator
 
         DatabaseHelper mDatabaseHelper = new DatabaseHelper();
         private List<PointLatLng> pointsList;
-        GMapOverlay DrawPoint;
+        public GMapOverlay DrawPoint;
 
 
 
@@ -47,13 +47,14 @@ namespace ShipEmulator
             gMap_Main.MapProvider = GMapProviders.GoogleMap;
             gMap_Main.DragButton = MouseButtons.Left;
             gMap_Main.Position = new PointLatLng(37.2328660, 131.8654529);
-            gMap_Main.MinZoom = 10;
+            gMap_Main.MinZoom = 5;
             gMap_Main.MaxZoom = 50;
             gMap_Main.Zoom = 12;
             gMap_Main.ShowCenter = false;
 
             DrawPoint = new GMapOverlay("point");
             gMap_Main.Overlays.Add(DrawPoint);
+            DotMarker.MarkerOverlay = DrawPoint;
 
             pointsList = new List<PointLatLng>();
         }
@@ -308,9 +309,12 @@ namespace ShipEmulator
 
         private void AddPoint(Decimal latitude, Decimal longitude)
         {
-            DotMarker point = new DotMarker(new PointLatLng((double)latitude, (double)longitude), Color.Blue);
-
-            DrawPoint.Markers.Add(point);
+            gMap_Main.Invoke(new MethodInvoker(() =>
+            {
+                DotMarker point = new DotMarker(new PointLatLng((double)latitude, (double)longitude), System.Drawing.Color.Blue);
+                DrawPoint.Markers.Add(point);
+                gMap_Main.Refresh();
+            }));
         }
 
         private Decimal ChangeGPSLoacation(string location, string direction)

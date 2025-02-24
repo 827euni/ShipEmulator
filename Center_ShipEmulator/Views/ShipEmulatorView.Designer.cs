@@ -43,6 +43,8 @@
             this.Label_Text_PortGPS = new System.Windows.Forms.Label();
             this.Label_Explanation_PortGPS = new System.Windows.Forms.Label();
             this.Gauge = new ShipEmulator.rpmGauge();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Label_Explanation_Sentence
@@ -217,11 +219,35 @@
             this.Gauge.Size = new System.Drawing.Size(416, 322);
             this.Gauge.TabIndex = 11;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Pretendard Variable", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(461, 853);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 25);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "500";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Pretendard Variable", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(709, 853);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 25);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "1500";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ShipEmulatorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 903);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Label_Text_PortRPM);
             this.Controls.Add(this.Label_Explanation_PortRPM);
             this.Controls.Add(this.Label_Text_PortGPS);
@@ -262,6 +288,8 @@
         private System.Windows.Forms.Label Label_Explanation_PortRPM;
         private System.Windows.Forms.Label Label_Text_PortGPS;
         private System.Windows.Forms.Label Label_Explanation_PortGPS;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
