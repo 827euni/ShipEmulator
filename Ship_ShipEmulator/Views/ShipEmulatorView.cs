@@ -44,6 +44,9 @@ namespace Ship_ShipEmulator
 
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
+                Button_Change_PortGPS.Enabled = true;
+                Button_Change_PortRPM.Enabled = true;
+                Button_Change_HZ.Enabled = true;
             }
         }
 
@@ -58,6 +61,9 @@ namespace Ship_ShipEmulator
                 mRpmUDLClient.Close();
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
+                Button_Change_PortGPS.Enabled = false;
+                Button_Change_PortRPM.Enabled = false;
+                Button_Change_HZ.Enabled = false;
             }
         }
 
@@ -129,28 +135,58 @@ namespace Ship_ShipEmulator
 
         private void Button_Change_PortGPS_Click(object sender, EventArgs e)
         {
-            if(TextBox_Change_portGPS.Text != "")
+            if (mIsRunning)
             {
-                mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
-                Label_Text_PortGPS.Text = mGpsPort.ToString();
-                using (UdpClient udpClient = new UdpClient())
+                if (TextBox_Change_portGPS.Text != "")
                 {
-                    byte[] GPSPort = BitConverter.GetBytes(mGpsPort);
-                    udpClient.Send(GPSPort, GPSPort.Length, "127.0.0.1", 50505);
+                    if (int.Parse(TextBox_Change_portGPS.Text) == 50505 || int.Parse(TextBox_Change_portGPS.Text) == 50506)
+                    {
+                        MessageBox.Show("사용할 수 없는 포트 번호입니다.");
+                    }
+                    else if (int.Parse(TextBox_Change_portGPS.Text) == mRpmPort)
+                    {
+                        MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
+                    }
+                    else
+                    {
+                        mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
+                        Label_Text_PortGPS.Text = mGpsPort.ToString();
+                        using (UdpClient udpClient = new UdpClient())
+                        {
+                            byte[] GPSPort = BitConverter.GetBytes(mGpsPort);
+                            udpClient.Send(GPSPort, GPSPort.Length, "127.0.0.1", 50505);
+                        }
+                    }
                 }
             }
+            else
+            {
+                Button_Change_PortGPS.Enabled = false;
+            }
+
         }
 
         private void Button_Change_PortRPM_Click(object sender, EventArgs e)
         {
             if (TextBox_Change_portRPM.Text != "")
             {
-                mRpmPort = int.Parse(TextBox_Change_portRPM.Text);
-                Label_Text_PortRPM.Text = mRpmPort.ToString();
-                using (UdpClient udpClient = new UdpClient())
+                if(int.Parse(TextBox_Change_portRPM.Text) == 50505 || int.Parse(TextBox_Change_portRPM.Text) == 50506)
                 {
-                    byte[] RPMPort = BitConverter.GetBytes(mRpmPort);
-                    udpClient.Send(RPMPort, RPMPort.Length, "127.0.0.1", 50506);
+                    MessageBox.Show("사용할 수 없는 포트 번호입니다.");
+                }
+                else if (int.Parse(TextBox_Change_portRPM.Text) == mGpsPort)
+                {
+                    MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
+                }
+                else
+                {
+                    mRpmPort = int.Parse(TextBox_Change_portRPM.Text);
+                    Label_Text_PortRPM.Text = mRpmPort.ToString();
+                    using (UdpClient udpClient = new UdpClient())
+                    {
+                        byte[] RPMPort = BitConverter.GetBytes(mRpmPort);
+                        udpClient.Send(RPMPort, RPMPort.Length, "127.0.0.1", 50506);
+                    }
                 }
             }
         }
