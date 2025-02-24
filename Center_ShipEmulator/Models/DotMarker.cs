@@ -41,7 +41,7 @@ namespace ShipEmulator.Models
             {
                 int last = points.Count;
 
-                    g.DrawLine(pen, points[last-5], points[last - 4]);
+                    g.DrawLine(pen, points[last - 5], points[last - 4]);
                     g.DrawLine(pen, points[last - 4], points[last - 3]);
                     g.DrawLine(pen, points[last - 3], points[last - 2]);
                     g.DrawLine(pen, points[last - 2], points[last-1]);
