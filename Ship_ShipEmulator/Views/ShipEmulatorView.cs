@@ -69,8 +69,8 @@ namespace Ship_ShipEmulator
 
         private string AddGPS()
         {
-            mLatitude += (random.NextDouble() - 0.5) * 0.03;
-            mLongitude += (random.NextDouble() - 0.5) * 0.03;
+            mLatitude += (random.NextDouble() - 0.5) * mRpm * 0.00001;
+            mLongitude += (random.NextDouble() - 0.5) * mRpm * 0.00001;
             string time = DateTime.UtcNow.ToString("HHmmss.fff");
 
             int Degree_Latitude = (int)mLatitude;
