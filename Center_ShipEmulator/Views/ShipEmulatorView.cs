@@ -59,6 +59,17 @@ namespace ShipEmulator
             pointsList = new List<PointLatLng>();
         }
 
+        private void Shift_Map(PointLatLng marking)
+        {
+            RectLatLng viewArea = gMap_Main.ViewArea;
+
+            if (!viewArea.Contains(marking))
+            {
+                gMap_Main.Position = marking;
+            }
+        }
+
+
         private void Button_Start_Click(object sender, EventArgs e)
         {
             if (!mIsRunning)
@@ -262,8 +273,6 @@ namespace ShipEmulator
                         mDatabaseHelper.AddRPM(rpmData);
                         Gauge.rpm = rpmData;
 
-
-
                         Invoke(new Action(() =>
                         {
                             Label_Text_RPM.Text = $"{rpmData.ToString("0000")}";
@@ -313,9 +322,11 @@ namespace ShipEmulator
             {
                 DotMarker point = new DotMarker(new PointLatLng((double)latitude, (double)longitude), System.Drawing.Color.Blue);
                 DrawPoint.Markers.Add(point);
+                Shift_Map(point.Position);
                 gMap_Main.Refresh();
             }));
         }
+
 
         private Decimal ChangeGPSLoacation(string location, string direction)
         {
@@ -338,6 +349,18 @@ namespace ShipEmulator
             return 0;
         }
 
+        private void ShipEmulatorView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (mIsRunning)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                e.Cancel = false;
+            }
+            
+        }
     }
 }
 
