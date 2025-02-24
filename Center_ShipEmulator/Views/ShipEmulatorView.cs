@@ -273,8 +273,6 @@ namespace ShipEmulator
                         mDatabaseHelper.AddRPM(rpmData);
                         Gauge.rpm = rpmData;
 
-
-
                         Invoke(new Action(() =>
                         {
                             Label_Text_RPM.Text = $"{rpmData.ToString("0000")}";
@@ -351,6 +349,18 @@ namespace ShipEmulator
             return 0;
         }
 
+        private void ShipEmulatorView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (mIsRunning)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                e.Cancel = false;
+            }
+            
+        }
     }
 }
 
