@@ -27,7 +27,7 @@ namespace Ship_ShipEmulator
             
         }
 
-
+        // 송신시작 버튼을 클릭하였을 때 불러오는 함수 
         private void Button_Start_Click(object sender, EventArgs e)
         {
             if (!mIsRunning) 
@@ -50,6 +50,7 @@ namespace Ship_ShipEmulator
             }
         }
 
+        // 송신 종료 버튼을 클릭하였을 때 불러오는 함수 
         private void Button_Stop_Click(object sender, EventArgs e)
         {
             if (mIsRunning) 
@@ -67,8 +68,10 @@ namespace Ship_ShipEmulator
             }
         }
 
+        // 선박 애뮬레이터로서 GPS 정보를 NMEA-0183 GPGGA 형식에 맞춰 랜덤 발생 시키는 함수 
         private string AddGPS()
         {
+            // 선박이 움직이는 것처럼 어느 정도 범위를 제한하여 난수 발생
             mLatitude += (random.NextDouble() - 0.5) * mRpm * 0.00001;
             mLongitude += (random.NextDouble() - 0.5) * mRpm * 0.00001;
             string time = DateTime.UtcNow.ToString("HHmmss.fff");
@@ -85,7 +88,7 @@ namespace Ship_ShipEmulator
         }
 
 
-
+        // 선박 애뮬레이터로서 RPM을 MIN-MAX 사이를 이동하는 랜덤 수 발생시키는 함수 
         private int AddRPM()
         {
 
@@ -109,6 +112,7 @@ namespace Ship_ShipEmulator
             return mRpm;
         }
 
+        // 만든 데이터를 UDP Client에 태워 전송하는 함수 
         private void Send()
         {
             string Gps;
@@ -133,6 +137,7 @@ namespace Ship_ShipEmulator
             }
         }
 
+        // GPS 포트 번호 변경 버튼 클릭시 실행되는 함수 
         private void Button_Change_PortGPS_Click(object sender, EventArgs e)
         {
             if (mIsRunning)
@@ -166,6 +171,7 @@ namespace Ship_ShipEmulator
 
         }
 
+        // RPM 포트 번호 변경 버튼 클릭시 실행되는 함수 
         private void Button_Change_PortRPM_Click(object sender, EventArgs e)
         {
             if (TextBox_Change_portRPM.Text != "")
@@ -191,6 +197,7 @@ namespace Ship_ShipEmulator
             }
         }
 
+        // 전송주파수 변경 버튼 클릭시 실행되는 함수 
         private void Button_Change_HZ_Click(object sender, EventArgs e)
         {
             if (TextBox_Change_HZ.Text != "")

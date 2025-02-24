@@ -16,6 +16,7 @@ namespace ShipEmulator.Models
             connectionString = "Server=EA-PC\\SQLEXPRESS;Database=ShipEmulator;Integrated Security=True;"; // 회사 데스크탑/노트북
         }
 
+        // 서버측에서 받은 GPS를 데이터베이스에 저장하는 함수
         public void AddGPS(GPS gps) 
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -31,6 +32,7 @@ namespace ShipEmulator.Models
             }
         }
 
+        // 서버측에서 받은 RPM을 데이터베이스에 저장하는 함수 
         public void AddRPM(int rpm)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -45,7 +47,5 @@ namespace ShipEmulator.Models
             }
         }
     }
-
-
-    }
+}
 
