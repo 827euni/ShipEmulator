@@ -17,6 +17,8 @@ namespace ShipEmulator.Models
         private int radius;
         private static List<Point> points = new List<Point>();
 
+        public static GMapOverlay MarkerOverlay { get; set; }
+
 
         public DotMarker(PointLatLng p, System.Drawing.Color color) : base(p) //부모 생성자 호출 방법 
         {
@@ -27,18 +29,22 @@ namespace ShipEmulator.Models
 
         public override void OnRender(Graphics g)
         {
-            g.FillEllipse(brush, new Rectangle(LocalPosition.X - radius / 2, LocalPosition.Y - radius / 2, radius, radius));
             // 원의 시작 점 보정을 위해서 반지름의 절반 만큼을 빼서 보정함. 
+            g.FillEllipse(brush, new Rectangle(LocalPosition.X - radius / 2, LocalPosition.Y - radius / 2, radius, radius));
 
-            points.Add(new Point(LocalPosition.X, LocalPosition.Y));
-
-            if (points.Count == 4)
+            if (MarkerOverlay != null && this == MarkerOverlay.Markers.Last())
             {
-                g.DrawLine(pen, points[0], points[1]);
-                g.DrawLine(pen, points[1], points[2]);
-                g.DrawLine(pen, points[2], points[3]);
+                points.Add(new Point(LocalPosition.X, LocalPosition.Y));
+            }
 
-                points.RemoveAt(0);
+            if (points.Count >= 5)
+            {
+                int last = points.Count;
+
+                    g.DrawLine(pen, points[last-5], points[last - 4]);
+                    g.DrawLine(pen, points[last - 4], points[last - 3]);
+                    g.DrawLine(pen, points[last - 3], points[last - 2]);
+                    g.DrawLine(pen, points[last - 2], points[last-1]);
             }
         }
     }
