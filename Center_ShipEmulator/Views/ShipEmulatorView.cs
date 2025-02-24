@@ -41,6 +41,7 @@ namespace ShipEmulator
             InitializeComponent();
         }
 
+        // 해당 폼이 로드 될 때 불러오는 함수 
         private void ShipEmulatorView_Load(object sender, EventArgs e)
         {
             // 구글 맵을 불러와서 화면에 로드하는 함수
@@ -49,7 +50,7 @@ namespace ShipEmulator
             gMap_Main.Position = new PointLatLng(37.2328660, 131.8654529);
             gMap_Main.MinZoom = 5;
             gMap_Main.MaxZoom = 50;
-            gMap_Main.Zoom = 12;
+            gMap_Main.Zoom = 13;
             gMap_Main.ShowCenter = false;
 
             DrawPoint = new GMapOverlay("point");
@@ -59,6 +60,7 @@ namespace ShipEmulator
             pointsList = new List<PointLatLng>();
         }
 
+        // 마커가 지도 범위를 넘어갈 경우 해당 점에 맞춰 지도가 이동하는 함수
         private void Shift_Map(PointLatLng marking)
         {
             RectLatLng viewArea = gMap_Main.ViewArea;
@@ -69,7 +71,7 @@ namespace ShipEmulator
             }
         }
 
-
+        // 수신 시작 버튼 클릭 시 불러오는 함수 
         private void Button_Start_Click(object sender, EventArgs e)
         {
             if (!mIsRunning)
@@ -97,6 +99,7 @@ namespace ShipEmulator
             }
         }
 
+        // 수신 종료 버튼을 클릭 시 불러오는 함수 
         private void Button_Stop_Click(object sender, EventArgs e)
         {
             if (mIsRunning)
@@ -108,6 +111,7 @@ namespace ShipEmulator
             }
         }
 
+        // 선박에서 GPS 포트가 변경되었을 때 그것을 감지하는 함수 
         private void GetChangeGPSPort()
         {
             if (mChangePortGPS == null)
@@ -136,8 +140,7 @@ namespace ShipEmulator
             }
         }
 
-
-
+        // 선박에서 RPM 포트가 변경되었을 때 그것을 감지하는 함수 
         private void GetGhangeRPMPort()
         {
 
@@ -167,6 +170,7 @@ namespace ShipEmulator
             }
         }
 
+        // 포트 변경 이후 GPS UDP 클라이언트 재시작시키는 함수 
         private void RestartGps()
         {
             if (mIsRunning)
@@ -180,6 +184,7 @@ namespace ShipEmulator
             }
         }
 
+        // 포트 변경 이후 RPM UDP 클라이언트 재시작시키는 함수 
         private void RestartRPM()
         {
             if (mIsRunning)
@@ -194,6 +199,7 @@ namespace ShipEmulator
             }
         }
 
+        // 선박으로부터 GPS 데이터를 받아와 데이터 파싱하여 DB에 저장하고, 화면에 텍스트로 보여주는 함수 
         private void GetGpsData()
         {
             IPEndPoint point = new IPEndPoint(IPAddress.Any, mGpsPort);
@@ -253,7 +259,7 @@ namespace ShipEmulator
             }
         }
 
-
+        // 선박으로부터 RPM 데이터를 받아와 DB에 저장하고, 화면에 텍스트로 보여주는 함수 
         private void GetRpmData()
         {
             IPEndPoint point = new IPEndPoint(IPAddress.Any, mRpmPort);
@@ -296,6 +302,7 @@ namespace ShipEmulator
             }
         }
 
+        // hhmmss.fff 형태의 데이터 파싱 데이터 일부를 utc로 만드는 함수 
         private DateTime ChangeDateTime(string time)
         {
             int hour = int.Parse(time.Substring(0, 2));
@@ -316,6 +323,7 @@ namespace ShipEmulator
             return changeTime;
         }
 
+        // 지도에 점 찍는 함수 
         private void AddPoint(Decimal latitude, Decimal longitude)
         {
             gMap_Main.Invoke(new MethodInvoker(() =>
@@ -327,7 +335,7 @@ namespace ShipEmulator
             }));
         }
 
-
+        // GPS 데이터 중 위도와 경도에 있어서 NMEA 신호를 일반적인 위경도의 단위로 변환하는 함수 
         private Decimal ChangeGPSLoacation(string location, string direction)
         {
             if (!string.IsNullOrEmpty(location))
@@ -349,6 +357,7 @@ namespace ShipEmulator
             return 0;
         }
 
+        // 수신 중일 때는 폼을 닫지 못하게 하는 함수 
         private void ShipEmulatorView_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (mIsRunning)

@@ -27,6 +27,7 @@ namespace ShipEmulator
             DoubleBuffered = true;
         }
 
+        // GDI+를 사용하여 게이지를 랜더링하는 함수 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -53,6 +54,8 @@ namespace ShipEmulator
                 Invalidate();
             }
         }
+
+        // 게이지의 직선 부분을 그려내는 함수 
 
         private void DrawSegment(Graphics g, int x, int y, int r, float ang, Color color, int size)
         {
