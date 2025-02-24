@@ -255,6 +255,7 @@
             this.Controls.Add(this.Button_Start);
             this.Name = "ShipEmulatorView";
             this.Text = "SHIP";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShipEmulatorView_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

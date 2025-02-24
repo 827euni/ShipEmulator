@@ -215,5 +215,16 @@ namespace Ship_ShipEmulator
             }
         }
 
+        private void ShipEmulatorView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (mIsRunning)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                e.Cancel = false;
+            }
+        }
     }
 }
