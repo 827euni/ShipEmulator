@@ -30,7 +30,6 @@ namespace ShipEmulator
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            Console.WriteLine(rpm);
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
