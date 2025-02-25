@@ -42,9 +42,9 @@
             this.Label_Explanation_PortRPM = new System.Windows.Forms.Label();
             this.Label_Text_PortGPS = new System.Windows.Forms.Label();
             this.Label_Explanation_PortGPS = new System.Windows.Forms.Label();
-            this.Gauge = new ShipEmulator.rpmGauge();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.Gauge = new ShipEmulator.rpmGauge();
             this.SuspendLayout();
             // 
             // Label_Explanation_Sentence
@@ -212,13 +212,6 @@
             this.Label_Explanation_PortGPS.Text = "GPS포트";
             this.Label_Explanation_PortGPS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // Gauge
-            // 
-            this.Gauge.Location = new System.Drawing.Point(419, 569);
-            this.Gauge.Name = "Gauge";
-            this.Gauge.Size = new System.Drawing.Size(416, 322);
-            this.Gauge.TabIndex = 11;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -240,6 +233,13 @@
             this.label2.TabIndex = 19;
             this.label2.Text = "1500";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Gauge
+            // 
+            this.Gauge.Location = new System.Drawing.Point(419, 569);
+            this.Gauge.Name = "Gauge";
+            this.Gauge.Size = new System.Drawing.Size(416, 322);
+            this.Gauge.TabIndex = 11;
             // 
             // ShipEmulatorView
             // 
