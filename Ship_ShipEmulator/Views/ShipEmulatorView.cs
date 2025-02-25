@@ -19,12 +19,17 @@ namespace Ship_ShipEmulator
         private int mRpmPort = 2424;
         private int mHz = 10;
         private int mRpm;
+        private string mGPGGA;
         private double mLatitude = 37.2328660;
         private double mLongitude = 131.8654529;
+        private System.Windows.Forms.Timer mTimer_UI;
+
         public ShipEmulatorView()
         {
             InitializeComponent();
-            
+            mTimer_UI = new System.Windows.Forms.Timer();
+            mTimer_UI.Interval = 100;
+            mTimer_UI.Tick += Timer_UI;
         }
 
         // 송신시작 버튼을 클릭하였을 때 불러오는 함수 
@@ -41,6 +46,7 @@ namespace Ship_ShipEmulator
                 mThread_Send = new Thread(Send);
                 mThread_Send.IsBackground = true;
                 mThread_Send.Start();
+                mTimer_UI.Start();
 
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
@@ -84,7 +90,8 @@ namespace Ship_ShipEmulator
             double Minute_Longitude = (mLongitude - Degree_Longitude) * 60;
             string NMEA_Longitude = $"{Degree_Longitude}{Minute_Longitude:00.0000},E";
 
-            return $"$GPGGA,{time},{NMEA_Latitude},{NMEA_Longitude},1,03,23,23,M,23,M,0.0,0000*23";
+            mGPGGA = $"$GPGGA,{time},{NMEA_Latitude},{NMEA_Longitude},1,03,23,23,M,23,M,0.0,0000*23";
+            return mGPGGA;
         }
 
 
@@ -224,6 +231,39 @@ namespace Ship_ShipEmulator
             else
             {
                 e.Cancel = false;
+            }
+        }
+
+        // GPS 데이터 중 위도와 경도에 있어서 NMEA 신호를 일반적인 위경도의 단위로 변환하는 함수 
+        private Decimal ChangeGPSLoacation(string location, string direction)
+        {
+            if (!string.IsNullOrEmpty(location))
+            {
+                Decimal num = Decimal.Parse(location);
+                Decimal degree = Math.Floor(num / 100);
+                Decimal minute = num % 100;
+
+                Decimal decimalDegrees = degree + (minute / 60);
+
+                if (direction == "S" || direction == "W")
+                {
+                    decimalDegrees *= -1;
+                }
+
+                return decimalDegrees;
+            }
+
+            return 0;
+        }
+
+        private void Timer_UI(object sender, EventArgs e)
+        {
+            if (mIsRunning)
+            {
+                Label_Text_Sentence.Text = mGPGGA;
+                Label_Text_RPM.Text = mRpm.ToString("0000");
+                Label_Text_Latitude.Text = $"{ChangeGPSLoacation(mGPGGA.Split(',')[2], mGPGGA.Split(',')[3]).ToString("F6")}도";
+                Label_Text_Longitude.Text = $"{ChangeGPSLoacation(mGPGGA.Split(',')[4], mGPGGA.Split(',')[5]).ToString("F6")}도";
             }
         }
     }
