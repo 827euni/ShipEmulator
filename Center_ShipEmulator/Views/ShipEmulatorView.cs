@@ -33,12 +33,16 @@ namespace ShipEmulator
         DatabaseHelper mDatabaseHelper = new DatabaseHelper();
         private List<PointLatLng> pointsList;
         public GMapOverlay DrawPoint;
+        private System.Windows.Forms.Timer mTimer_UI;
 
 
 
         public ShipEmulatorView()
         {
             InitializeComponent();
+            mTimer_UI = new System.Windows.Forms.Timer();
+            mTimer_UI.Interval = 100;
+            mTimer_UI.Tick += Timer_UI;
         }
 
         // 해당 폼이 로드 될 때 불러오는 함수 
@@ -94,6 +98,8 @@ namespace ShipEmulator
                 ChangeGpsPort.Start();
                 ChangeRPMPort.Start();
 
+                mTimer_UI.Start();
+
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
             }
@@ -105,6 +111,8 @@ namespace ShipEmulator
             if (mIsRunning)
             {
                 mIsRunning = false;
+
+                mTimer_UI.Stop();
 
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
