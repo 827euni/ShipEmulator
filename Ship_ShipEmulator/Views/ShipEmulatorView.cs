@@ -66,6 +66,8 @@ namespace Ship_ShipEmulator
                 mThread_Send.Join();
                 mGpsUDPClient.Close();
                 mRpmUDLClient.Close();
+
+                mTimer_UI.Stop();
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
                 Button_Change_PortGPS.Enabled = false;
