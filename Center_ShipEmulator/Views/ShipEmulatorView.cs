@@ -101,13 +101,10 @@ namespace ShipEmulator
                 //ChangeGpsPort.Start();
                 //ChangeRPMPort.Start();
 
-                Console.WriteLine("타이머 시작 호출!");
                 mTimer_UI.Start();
 
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
-
-                Button_Change_PortGPS.Enabled = true;
             }
         }
 
@@ -123,6 +120,7 @@ namespace ShipEmulator
 
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
+
             }
         }
 
@@ -252,6 +250,8 @@ namespace ShipEmulator
                         AddPoint(Latitude, Longitude);
 
                         mGPGGA = getGPS;
+
+                        
 
 
                         //Invoke(new Action(() =>
@@ -434,10 +434,6 @@ namespace ShipEmulator
             {
                 if (TextBox_Change_portGPS.Text != "")
                 {
-                    //if (int.Parse(TextBox_Change_portGPS.Text) == 50505 || int.Parse(TextBox_Change_portGPS.Text) == 50506)
-                    //{
-                    //    MessageBox.Show("사용할 수 없는 포트 번호입니다.");
-                    //}
                     if (int.Parse(TextBox_Change_portGPS.Text) == mRpmPort)
                     {
                         MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
@@ -447,11 +443,6 @@ namespace ShipEmulator
                         mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
                         RestartGps();
                         Label_Text_PortGPS.Text = "0"; //여기 수정해야함. 
-                        //using (UdpClient udpClient = new UdpClient())
-                        //{
-                        //    byte[] GPSPort = BitConverter.GetBytes(mGpsPort);
-                        //    udpClient.Send(GPSPort, GPSPort.Length, "127.0.0.1", 50505);
-                        //}
                     }
                 }
             }

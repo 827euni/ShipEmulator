@@ -254,7 +254,6 @@
             // 
             // Button_Change_PortRPM
             // 
-            this.Button_Change_PortRPM.Enabled = false;
             this.Button_Change_PortRPM.Font = new System.Drawing.Font("Pretendard Variable SemiBold", 14F, System.Drawing.FontStyle.Bold);
             this.Button_Change_PortRPM.Location = new System.Drawing.Point(1052, 708);
             this.Button_Change_PortRPM.Name = "Button_Change_PortRPM";
@@ -266,7 +265,6 @@
             // 
             // Button_Change_PortGPS
             // 
-            this.Button_Change_PortGPS.Enabled = false;
             this.Button_Change_PortGPS.Font = new System.Drawing.Font("Pretendard Variable SemiBold", 14F, System.Drawing.FontStyle.Bold);
             this.Button_Change_PortGPS.Location = new System.Drawing.Point(1052, 663);
             this.Button_Change_PortGPS.Name = "Button_Change_PortGPS";

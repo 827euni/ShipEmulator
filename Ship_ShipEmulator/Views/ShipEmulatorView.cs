@@ -50,9 +50,7 @@ namespace Ship_ShipEmulator
 
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
-                Button_Change_PortGPS.Enabled = true;
-                Button_Change_PortRPM.Enabled = true;
-                Button_Change_HZ.Enabled = true;
+
             }
         }
 
@@ -70,9 +68,7 @@ namespace Ship_ShipEmulator
                 mTimer_UI.Stop();
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
-                Button_Change_PortGPS.Enabled = false;
-                Button_Change_PortRPM.Enabled = false;
-                Button_Change_HZ.Enabled = false;
+
             }
         }
 
