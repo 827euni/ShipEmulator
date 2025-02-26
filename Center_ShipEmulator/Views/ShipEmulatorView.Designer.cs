@@ -171,7 +171,7 @@
             // 
             this.Label_Text_PortRPM.AutoSize = true;
             this.Label_Text_PortRPM.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Text_PortRPM.Location = new System.Drawing.Point(641, 824);
+            this.Label_Text_PortRPM.Location = new System.Drawing.Point(1061, 607);
             this.Label_Text_PortRPM.Name = "Label_Text_PortRPM";
             this.Label_Text_PortRPM.Size = new System.Drawing.Size(71, 29);
             this.Label_Text_PortRPM.TabIndex = 16;
@@ -183,7 +183,7 @@
             // 
             this.Label_Explanation_PortRPM.AutoSize = true;
             this.Label_Explanation_PortRPM.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Explanation_PortRPM.Location = new System.Drawing.Point(518, 824);
+            this.Label_Explanation_PortRPM.Location = new System.Drawing.Point(938, 607);
             this.Label_Explanation_PortRPM.Name = "Label_Explanation_PortRPM";
             this.Label_Explanation_PortRPM.Size = new System.Drawing.Size(105, 29);
             this.Label_Explanation_PortRPM.TabIndex = 15;
@@ -194,7 +194,7 @@
             // 
             this.Label_Text_PortGPS.AutoSize = true;
             this.Label_Text_PortGPS.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Text_PortGPS.Location = new System.Drawing.Point(641, 786);
+            this.Label_Text_PortGPS.Location = new System.Drawing.Point(1061, 569);
             this.Label_Text_PortGPS.Name = "Label_Text_PortGPS";
             this.Label_Text_PortGPS.Size = new System.Drawing.Size(71, 29);
             this.Label_Text_PortGPS.TabIndex = 14;
@@ -205,7 +205,7 @@
             // 
             this.Label_Explanation_PortGPS.AutoSize = true;
             this.Label_Explanation_PortGPS.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Explanation_PortGPS.Location = new System.Drawing.Point(518, 786);
+            this.Label_Explanation_PortGPS.Location = new System.Drawing.Point(938, 569);
             this.Label_Explanation_PortGPS.Name = "Label_Explanation_PortGPS";
             this.Label_Explanation_PortGPS.Size = new System.Drawing.Size(102, 29);
             this.Label_Explanation_PortGPS.TabIndex = 13;

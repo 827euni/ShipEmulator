@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using GMap.NET;
 using GMap.NET.MapProviders;
@@ -29,16 +30,22 @@ namespace ShipEmulator
         private bool mIsRunning = false;
         private int mGpsPort = 2323;
         private int mRpmPort = 2424;
+        private volatile string mGPGGA;
+        private int mRpm;
 
         DatabaseHelper mDatabaseHelper = new DatabaseHelper();
         private List<PointLatLng> pointsList;
         public GMapOverlay DrawPoint;
+        private System.Timers.Timer mTimer_UI;
 
 
 
         public ShipEmulatorView()
         {
             InitializeComponent();
+            mTimer_UI = new System.Timers.Timer(100);
+            mTimer_UI.Elapsed += Timer_UI;
+            mTimer_UI.AutoReset = true;
         }
 
         // 해당 폼이 로드 될 때 불러오는 함수 
@@ -94,6 +101,9 @@ namespace ShipEmulator
                 ChangeGpsPort.Start();
                 ChangeRPMPort.Start();
 
+                Console.WriteLine("타이머 시작 호출!");
+                mTimer_UI.Start();
+
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
             }
@@ -104,7 +114,10 @@ namespace ShipEmulator
         {
             if (mIsRunning)
             {
+                Console.WriteLine("타이머 중지 호출!");
                 mIsRunning = false;
+
+                mTimer_UI.Stop();
 
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
@@ -195,7 +208,7 @@ namespace ShipEmulator
                     mRpmUDLClient = null;
                 }
                 mRpmUDLClient = new UdpClient(mRpmPort);
-               
+
             }
         }
 
@@ -204,13 +217,13 @@ namespace ShipEmulator
         {
             IPEndPoint point = new IPEndPoint(IPAddress.Any, mGpsPort);
             byte[] getBytes;
-            string gpsData;
+            string getGPS;
             Decimal Latitude;
             Decimal Longitude;
 
             try
             {
-                if(mGpsUDPClient == null)
+                if (mGpsUDPClient == null)
                 {
                     mGpsUDPClient = new UdpClient(mGpsPort);
                 }
@@ -221,13 +234,13 @@ namespace ShipEmulator
                     try
                     {
                         getBytes = mGpsUDPClient.Receive(ref point);
-                        gpsData = Encoding.UTF8.GetString(getBytes);
-                        Latitude = ChangeGPSLoacation(gpsData.Split(',')[2], gpsData.Split(',')[3]);
-                        Longitude = ChangeGPSLoacation(gpsData.Split(',')[4], gpsData.Split(',')[5]);
+                        getGPS = Encoding.UTF8.GetString(getBytes);
+                        Latitude = ChangeGPSLoacation(getGPS.Split(',')[2], getGPS.Split(',')[3]);
+                        Longitude = ChangeGPSLoacation(getGPS.Split(',')[4], getGPS.Split(',')[5]);
 
                         GPS gps = new GPS()
                         {
-                            GPS_TIME = ChangeDateTime(gpsData.Split(',')[1]),
+                            GPS_TIME = ChangeDateTime(getGPS.Split(',')[1]),
                             GPS_Latitude = Latitude,
                             GPS_Longitude = Longitude
                         };
@@ -235,12 +248,15 @@ namespace ShipEmulator
                         mDatabaseHelper.AddGPS(gps);
                         AddPoint(Latitude, Longitude);
 
-                        Invoke(new Action(() =>
-                        {
-                            Label_Text_Sentence.Text = $"{gpsData}";
-                            Label_Text_Latitude.Text = $"{Latitude.ToString("F6")}도";
-                            Label_Text_Longitude.Text = $"{Longitude.ToString("F6")}도";
-                        }));
+                        mGPGGA = getGPS;
+
+
+                        //Invoke(new Action(() =>
+                        //{
+                        //    Label_Text_Sentence.Text = $"{getGPS}";
+                        //    Label_Text_Latitude.Text = $"{Latitude.ToString("F6")}도";
+                        //    Label_Text_Longitude.Text = $"{Longitude.ToString("F6")}도";
+                        //}));
 
                     }
                     catch (SocketException ex)
@@ -279,12 +295,13 @@ namespace ShipEmulator
                         mDatabaseHelper.AddRPM(rpmData);
                         Gauge.rpm = rpmData;
 
-                        Invoke(new Action(() =>
-                        {
-                            Label_Text_RPM.Text = $"{rpmData.ToString("0000")}";
-                        }));
+                        mRpm = rpmData;
 
-                        Gauge.rpm = rpmData;
+                        //Invoke(new Action(() =>
+                        //{
+                        //    Label_Text_RPM.Text = $"{rpmData.ToString("0000")}";
+                        //}));
+
                     }
                     catch (SocketException ex)
                     {
@@ -368,7 +385,43 @@ namespace ShipEmulator
             {
                 e.Cancel = false;
             }
-            
+        }
+
+        private void Timer_UI(object sender, ElapsedEventArgs e)
+        {
+
+            if (!mIsRunning || string.IsNullOrEmpty(mGPGGA)) return;
+
+            try
+            {
+                string[] gpsData = mGPGGA.Split(',');
+
+                if (gpsData.Length < 6) return;
+
+                if (Label_Text_Sentence.InvokeRequired)
+                {
+                    Label_Text_Sentence.Invoke(new Action(() =>
+                    {
+                        UpdateUI(gpsData);
+                    }));
+                }
+                else
+                {
+                    UpdateUI(gpsData);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void UpdateUI(string[] gpsData)
+        {
+            Label_Text_Sentence.Text = mGPGGA;
+            Label_Text_Latitude.Text = $"{ChangeGPSLoacation(gpsData[2], gpsData[3]):F6}도";
+            Label_Text_Longitude.Text = $"{ChangeGPSLoacation(gpsData[4], gpsData[5]):F6}도";
+            Label_Text_RPM.Text = $"{mRpm:0000}";
         }
     }
 }
