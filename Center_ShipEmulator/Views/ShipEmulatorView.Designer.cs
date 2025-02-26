@@ -45,6 +45,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Gauge = new ShipEmulator.rpmGauge();
+            this.Label_Connection = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Label_Explanation_Sentence
@@ -241,11 +242,23 @@
             this.Gauge.Size = new System.Drawing.Size(416, 322);
             this.Gauge.TabIndex = 11;
             // 
+            // Label_Connection
+            // 
+            this.Label_Connection.AutoSize = true;
+            this.Label_Connection.Font = new System.Drawing.Font("Pretendard Variable Black", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label_Connection.ForeColor = System.Drawing.Color.Green;
+            this.Label_Connection.Location = new System.Drawing.Point(1070, 647);
+            this.Label_Connection.Name = "Label_Connection";
+            this.Label_Connection.Size = new System.Drawing.Size(61, 33);
+            this.Label_Connection.TabIndex = 21;
+            this.Label_Connection.Text = "연결";
+            // 
             // ShipEmulatorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 903);
+            this.Controls.Add(this.Label_Connection);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Label_Text_PortRPM);
@@ -291,6 +304,7 @@
         private System.Windows.Forms.Label Label_Explanation_PortGPS;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Label_Connection;
     }
 }
 
