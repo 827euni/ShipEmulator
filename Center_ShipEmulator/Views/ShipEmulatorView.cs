@@ -23,8 +23,8 @@ namespace ShipEmulator
     {
         private UdpClient mGpsUDPClient;
         private UdpClient mRpmUDLClient;
-        private UdpClient mChangePortGPS;
-        private UdpClient mChangePortRPM;
+        //private UdpClient mChangePortGPS;
+        //private UdpClient mChangePortRPM;
         private Thread mThread_Gps;
         private Thread mThread_Rpm;
         private bool mIsRunning = false;
@@ -85,21 +85,21 @@ namespace ShipEmulator
             {
                 mIsRunning = true;
                 DrawPoint.Markers.Clear();
-                Thread ChangeGpsPort = new Thread(GetChangeGPSPort);
-                Thread ChangeRPMPort = new Thread(GetGhangeRPMPort);
+                //Thread ChangeGpsPort = new Thread(GetChangeGPSPort);
+                //Thread ChangeRPMPort = new Thread(GetGhangeRPMPort);
 
                 mThread_Gps = new Thread(GetGpsData);
                 mThread_Rpm = new Thread(GetRpmData);
 
                 mThread_Gps.IsBackground = true;
                 mThread_Rpm.IsBackground = true;
-                ChangeGpsPort.IsBackground = true;
-                ChangeRPMPort.IsBackground = true;
+                //ChangeGpsPort.IsBackground = true;
+                //ChangeRPMPort.IsBackground = true;
 
                 mThread_Gps.Start();
                 mThread_Rpm.Start();
-                ChangeGpsPort.Start();
-                ChangeRPMPort.Start();
+                //ChangeGpsPort.Start();
+                //ChangeRPMPort.Start();
 
                 Console.WriteLine("타이머 시작 호출!");
                 mTimer_UI.Start();
@@ -124,93 +124,93 @@ namespace ShipEmulator
             }
         }
 
-        // 선박에서 GPS 포트가 변경되었을 때 그것을 감지하는 함수 
-        private void GetChangeGPSPort()
-        {
-            if (mChangePortGPS == null)
-            {
-                mChangePortGPS = new UdpClient(50505);
-            }
-            IPEndPoint point = new IPEndPoint(IPAddress.Any, 50505);
-            byte[] getBytes;
-            int GPSPortData;
+        //// 선박에서 GPS 포트가 변경되었을 때 그것을 감지하는 함수 
+        //private void GetChangeGPSPort()
+        //{
+        //    if (mChangePortGPS == null)
+        //    {
+        //        mChangePortGPS = new UdpClient(50505);
+        //    }
+        //    IPEndPoint point = new IPEndPoint(IPAddress.Any, 50505);
+        //    byte[] getBytes;
+        //    int GPSPortData;
 
-            while (true) // 송신, 수신 여부와 상관없이 반드시 포트 변경은 감지해야함.
-            {
-                getBytes = mChangePortGPS.Receive(ref point);
-                GPSPortData = BitConverter.ToInt32(getBytes, 0);
+        //    while (true) // 송신, 수신 여부와 상관없이 반드시 포트 변경은 감지해야함.
+        //    {
+        //        getBytes = mChangePortGPS.Receive(ref point);
+        //        GPSPortData = BitConverter.ToInt32(getBytes, 0);
 
-                Invoke(new Action(() =>
-                {
-                    if (mGpsPort != GPSPortData)
-                    {
-                        mGpsPort = GPSPortData;
-                        Label_Text_PortGPS.Text = mGpsPort.ToString();
-                        RestartGps();
-                    }
-                }));
+        //        Invoke(new Action(() =>
+        //        {
+        //            if (mGpsPort != GPSPortData)
+        //            {
+        //                mGpsPort = GPSPortData;
+        //                Label_Text_PortGPS.Text = mGpsPort.ToString();
+        //                RestartGps();
+        //            }
+        //        }));
 
-            }
-        }
+        //    }
+        //}
 
-        // 선박에서 RPM 포트가 변경되었을 때 그것을 감지하는 함수 
-        private void GetGhangeRPMPort()
-        {
+        //// 선박에서 RPM 포트가 변경되었을 때 그것을 감지하는 함수 
+        //private void GetGhangeRPMPort()
+        //{
 
-            if (mChangePortRPM == null)
-            {
-                mChangePortRPM = new UdpClient(50506);
-            }
-            IPEndPoint point = new IPEndPoint(IPAddress.Any, 50506);
-            byte[] getBytes;
-            int RPMPortData;
+        //    if (mChangePortRPM == null)
+        //    {
+        //        mChangePortRPM = new UdpClient(50506);
+        //    }
+        //    IPEndPoint point = new IPEndPoint(IPAddress.Any, 50506);
+        //    byte[] getBytes;
+        //    int RPMPortData;
 
-            while (true) // 송신, 수신 여부와 상관없이 반드시 포트 변경은 감지해야함.
-            {
-                getBytes = mChangePortRPM.Receive(ref point);
-                RPMPortData = BitConverter.ToInt32(getBytes, 0);
+        //    while (true) // 송신, 수신 여부와 상관없이 반드시 포트 변경은 감지해야함.
+        //    {
+        //        getBytes = mChangePortRPM.Receive(ref point);
+        //        RPMPortData = BitConverter.ToInt32(getBytes, 0);
 
-                Invoke(new Action(() =>
-                {
-                    if (mRpmPort != RPMPortData)
-                    {
-                        mRpmPort = RPMPortData;
-                        Label_Text_PortRPM.Text = mRpmPort.ToString();
-                        RestartRPM();
-                    }
-                }));
+        //        Invoke(new Action(() =>
+        //        {
+        //            if (mRpmPort != RPMPortData)
+        //            {
+        //                mRpmPort = RPMPortData;
+        //                Label_Text_PortRPM.Text = mRpmPort.ToString();
+        //                RestartRPM();
+        //            }
+        //        }));
 
-            }
-        }
+        //    }
+        //}
 
-        // 포트 변경 이후 GPS UDP 클라이언트 재시작시키는 함수 
-        private void RestartGps()
-        {
-            if (mIsRunning)
-            {
-                if (mGpsUDPClient != null)
-                {
-                    mGpsUDPClient.Close();
-                    mGpsUDPClient = null;
-                }
-                mGpsUDPClient = new UdpClient(mGpsPort);
-            }
-        }
+        //// 포트 변경 이후 GPS UDP 클라이언트 재시작시키는 함수 
+        //private void RestartGps()
+        //{
+        //    if (mIsRunning)
+        //    {
+        //        if (mGpsUDPClient != null)
+        //        {
+        //            mGpsUDPClient.Close();
+        //            mGpsUDPClient = null;
+        //        }
+        //        mGpsUDPClient = new UdpClient(mGpsPort);
+        //    }
+        //}
 
-        // 포트 변경 이후 RPM UDP 클라이언트 재시작시키는 함수 
-        private void RestartRPM()
-        {
-            if (mIsRunning)
-            {
-                if (mRpmUDLClient != null)
-                {
-                    mRpmUDLClient.Close();
-                    mRpmUDLClient = null;
-                }
-                mRpmUDLClient = new UdpClient(mRpmPort);
+        //// 포트 변경 이후 RPM UDP 클라이언트 재시작시키는 함수 
+        //private void RestartRPM()
+        //{
+        //    if (mIsRunning)
+        //    {
+        //        if (mRpmUDLClient != null)
+        //        {
+        //            mRpmUDLClient.Close();
+        //            mRpmUDLClient = null;
+        //        }
+        //        mRpmUDLClient = new UdpClient(mRpmPort);
 
-            }
-        }
+        //    }
+        //}
 
         // 선박으로부터 GPS 데이터를 받아와 데이터 파싱하여 DB에 저장하고, 화면에 텍스트로 보여주는 함수 
         private void GetGpsData()
