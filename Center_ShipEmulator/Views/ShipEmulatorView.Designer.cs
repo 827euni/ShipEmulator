@@ -44,12 +44,12 @@
             this.Label_Explanation_PortGPS = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.Gauge = new ShipEmulator.rpmGauge();
             this.Label_Connection = new System.Windows.Forms.Label();
             this.Button_Change_PortRPM = new System.Windows.Forms.Button();
             this.Button_Change_PortGPS = new System.Windows.Forms.Button();
             this.TextBox_Change_portRPM = new System.Windows.Forms.TextBox();
             this.TextBox_Change_portGPS = new System.Windows.Forms.TextBox();
+            this.Gauge = new ShipEmulator.rpmGauge();
             this.SuspendLayout();
             // 
             // Label_Explanation_Sentence
@@ -241,13 +241,6 @@
             this.label2.Text = "1500";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Gauge
-            // 
-            this.Gauge.Location = new System.Drawing.Point(114, 558);
-            this.Gauge.Name = "Gauge";
-            this.Gauge.Size = new System.Drawing.Size(416, 322);
-            this.Gauge.TabIndex = 11;
-            // 
             // Label_Connection
             // 
             this.Label_Connection.AutoSize = true;
@@ -269,6 +262,7 @@
             this.Button_Change_PortRPM.TabIndex = 36;
             this.Button_Change_PortRPM.Text = "변경";
             this.Button_Change_PortRPM.UseVisualStyleBackColor = true;
+            this.Button_Change_PortRPM.Click += new System.EventHandler(this.Button_Change_PortRPM_Click);
             // 
             // Button_Change_PortGPS
             // 
@@ -280,6 +274,7 @@
             this.Button_Change_PortGPS.TabIndex = 35;
             this.Button_Change_PortGPS.Text = "변경";
             this.Button_Change_PortGPS.UseVisualStyleBackColor = true;
+            this.Button_Change_PortGPS.Click += new System.EventHandler(this.Button_Change_PortGPS_Click);
             // 
             // TextBox_Change_portRPM
             // 
@@ -298,6 +293,13 @@
             this.TextBox_Change_portGPS.Size = new System.Drawing.Size(219, 36);
             this.TextBox_Change_portGPS.TabIndex = 32;
             this.TextBox_Change_portGPS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Gauge
+            // 
+            this.Gauge.Location = new System.Drawing.Point(114, 558);
+            this.Gauge.Name = "Gauge";
+            this.Gauge.Size = new System.Drawing.Size(416, 322);
+            this.Gauge.TabIndex = 11;
             // 
             // ShipEmulatorView
             // 

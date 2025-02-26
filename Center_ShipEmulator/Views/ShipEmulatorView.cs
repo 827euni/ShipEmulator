@@ -106,6 +106,8 @@ namespace ShipEmulator
 
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
+
+                Button_Change_PortGPS.Enabled = true;
             }
         }
 
@@ -184,37 +186,38 @@ namespace ShipEmulator
         //}
 
         //// 포트 변경 이후 GPS UDP 클라이언트 재시작시키는 함수 
-        //private void RestartGps()
-        //{
-        //    if (mIsRunning)
-        //    {
-        //        if (mGpsUDPClient != null)
-        //        {
-        //            mGpsUDPClient.Close();
-        //            mGpsUDPClient = null;
-        //        }
-        //        mGpsUDPClient = new UdpClient(mGpsPort);
-        //    }
-        //}
+        private void RestartGps()
+        {
+            if (mIsRunning)
+            {
+                if (mGpsUDPClient != null)
+                {
+                    mGpsUDPClient.Close();
+                    mGpsUDPClient = null;
+                }
+                mGpsUDPClient = new UdpClient(mGpsPort);
+            }
+        }
 
-        //// 포트 변경 이후 RPM UDP 클라이언트 재시작시키는 함수 
-        //private void RestartRPM()
-        //{
-        //    if (mIsRunning)
-        //    {
-        //        if (mRpmUDLClient != null)
-        //        {
-        //            mRpmUDLClient.Close();
-        //            mRpmUDLClient = null;
-        //        }
-        //        mRpmUDLClient = new UdpClient(mRpmPort);
+        // 포트 변경 이후 RPM UDP 클라이언트 재시작시키는 함수 
+        private void RestartRPM()
+        {
+            if (mIsRunning)
+            {
+                if (mRpmUDLClient != null)
+                {
+                    mRpmUDLClient.Close();
+                    mRpmUDLClient = null;
+                }
+                mRpmUDLClient = new UdpClient(mRpmPort);
 
-        //    }
-        //}
+            }
+        }
 
         // 선박으로부터 GPS 데이터를 받아와 데이터 파싱하여 DB에 저장하고, 화면에 텍스트로 보여주는 함수 
         private void GetGpsData()
         {
+            Console.WriteLine($"GET{mGpsPort}");
             IPEndPoint point = new IPEndPoint(IPAddress.Any, mGpsPort);
             byte[] getBytes;
             string getGPS;
@@ -423,6 +426,47 @@ namespace ShipEmulator
             Label_Text_Longitude.Text = $"{ChangeGPSLoacation(gpsData[4], gpsData[5]):F6}도";
             Label_Text_RPM.Text = $"{mRpm:0000}";
         }
+
+        // GPS 포트 번호 변경 버튼 클릭시 실행되는 함수 
+        private void Button_Change_PortGPS_Click(object sender, EventArgs e)
+        {
+            if (mIsRunning)
+            {
+                if (TextBox_Change_portGPS.Text != "")
+                {
+                    //if (int.Parse(TextBox_Change_portGPS.Text) == 50505 || int.Parse(TextBox_Change_portGPS.Text) == 50506)
+                    //{
+                    //    MessageBox.Show("사용할 수 없는 포트 번호입니다.");
+                    //}
+                    if (int.Parse(TextBox_Change_portGPS.Text) == mRpmPort)
+                    {
+                        MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
+                    }
+                    else
+                    {
+                        mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
+                        RestartGps();
+                        Label_Text_PortGPS.Text = "0"; //여기 수정해야함. 
+                        //using (UdpClient udpClient = new UdpClient())
+                        //{
+                        //    byte[] GPSPort = BitConverter.GetBytes(mGpsPort);
+                        //    udpClient.Send(GPSPort, GPSPort.Length, "127.0.0.1", 50505);
+                        //}
+                    }
+                }
+            }
+            else
+            {
+                Button_Change_PortGPS.Enabled = false;
+            }
+        }
+
+
+        private void Button_Change_PortRPM_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
 
