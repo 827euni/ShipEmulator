@@ -66,6 +66,7 @@
             // 
             // Button_Stop
             // 
+            this.Button_Stop.Enabled = false;
             this.Button_Stop.Font = new System.Drawing.Font("Pretendard Variable ExtraBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Button_Stop.Location = new System.Drawing.Point(554, 147);
             this.Button_Stop.Name = "Button_Stop";
@@ -168,7 +169,6 @@
             // 
             // Button_Change_PortGPS
             // 
-            this.Button_Change_PortGPS.Enabled = false;
             this.Button_Change_PortGPS.Font = new System.Drawing.Font("Pretendard Variable SemiBold", 14F, System.Drawing.FontStyle.Bold);
             this.Button_Change_PortGPS.Location = new System.Drawing.Point(717, 290);
             this.Button_Change_PortGPS.Name = "Button_Change_PortGPS";
@@ -180,7 +180,6 @@
             // 
             // Button_Change_PortRPM
             // 
-            this.Button_Change_PortRPM.Enabled = false;
             this.Button_Change_PortRPM.Font = new System.Drawing.Font("Pretendard Variable SemiBold", 14F, System.Drawing.FontStyle.Bold);
             this.Button_Change_PortRPM.Location = new System.Drawing.Point(717, 335);
             this.Button_Change_PortRPM.Name = "Button_Change_PortRPM";
@@ -192,7 +191,6 @@
             // 
             // Button_Change_HZ
             // 
-            this.Button_Change_HZ.Enabled = false;
             this.Button_Change_HZ.Font = new System.Drawing.Font("Pretendard Variable SemiBold", 14F, System.Drawing.FontStyle.Bold);
             this.Button_Change_HZ.Location = new System.Drawing.Point(717, 379);
             this.Button_Change_HZ.Name = "Button_Change_HZ";
@@ -313,6 +311,7 @@
             this.Name = "ShipEmulatorView";
             this.Text = "SHIP";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShipEmulatorView_FormClosing);
+            this.Load += new System.EventHandler(this.ShipEmulatorView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

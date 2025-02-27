@@ -44,6 +44,14 @@
             this.Label_Explanation_PortGPS = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.Label_Connection_GPS = new System.Windows.Forms.Label();
+            this.Button_Change_PortRPM = new System.Windows.Forms.Button();
+            this.Button_Change_PortGPS = new System.Windows.Forms.Button();
+            this.TextBox_Change_portRPM = new System.Windows.Forms.TextBox();
+            this.TextBox_Change_portGPS = new System.Windows.Forms.TextBox();
+            this.Label_Connection_RPM = new System.Windows.Forms.Label();
+            this.Label_Text_ShipPortGPS = new System.Windows.Forms.Label();
+            this.Label_Text_ShipPortRPM = new System.Windows.Forms.Label();
             this.Gauge = new ShipEmulator.rpmGauge();
             this.SuspendLayout();
             // 
@@ -135,6 +143,7 @@
             // 
             // Button_Stop
             // 
+            this.Button_Stop.Enabled = false;
             this.Button_Stop.Font = new System.Drawing.Font("Pretendard Variable ExtraBold", 16F, System.Drawing.FontStyle.Bold);
             this.Button_Stop.Location = new System.Drawing.Point(1124, 12);
             this.Button_Stop.Name = "Button_Stop";
@@ -160,7 +169,7 @@
             // 
             this.Label_Text_RPM.AutoSize = true;
             this.Label_Text_RPM.Font = new System.Drawing.Font("Pretendard Variable Black", 70F, System.Drawing.FontStyle.Bold);
-            this.Label_Text_RPM.Location = new System.Drawing.Point(494, 673);
+            this.Label_Text_RPM.Location = new System.Drawing.Point(186, 687);
             this.Label_Text_RPM.Name = "Label_Text_RPM";
             this.Label_Text_RPM.Size = new System.Drawing.Size(257, 113);
             this.Label_Text_RPM.TabIndex = 10;
@@ -171,19 +180,20 @@
             // 
             this.Label_Text_PortRPM.AutoSize = true;
             this.Label_Text_PortRPM.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Text_PortRPM.Location = new System.Drawing.Point(1061, 607);
+            this.Label_Text_PortRPM.ForeColor = System.Drawing.Color.DimGray;
+            this.Label_Text_PortRPM.Location = new System.Drawing.Point(915, 812);
             this.Label_Text_PortRPM.Name = "Label_Text_PortRPM";
-            this.Label_Text_PortRPM.Size = new System.Drawing.Size(71, 29);
+            this.Label_Text_PortRPM.Size = new System.Drawing.Size(131, 29);
             this.Label_Text_PortRPM.TabIndex = 16;
             this.Label_Text_PortRPM.Tag = "  ";
-            this.Label_Text_PortRPM.Text = "2424";
+            this.Label_Text_PortRPM.Text = "센터 : 2424";
             this.Label_Text_PortRPM.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Label_Explanation_PortRPM
             // 
             this.Label_Explanation_PortRPM.AutoSize = true;
             this.Label_Explanation_PortRPM.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Explanation_PortRPM.Location = new System.Drawing.Point(938, 607);
+            this.Label_Explanation_PortRPM.Location = new System.Drawing.Point(927, 655);
             this.Label_Explanation_PortRPM.Name = "Label_Explanation_PortRPM";
             this.Label_Explanation_PortRPM.Size = new System.Drawing.Size(105, 29);
             this.Label_Explanation_PortRPM.TabIndex = 15;
@@ -194,18 +204,19 @@
             // 
             this.Label_Text_PortGPS.AutoSize = true;
             this.Label_Text_PortGPS.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Text_PortGPS.Location = new System.Drawing.Point(1061, 569);
+            this.Label_Text_PortGPS.ForeColor = System.Drawing.Color.DimGray;
+            this.Label_Text_PortGPS.Location = new System.Drawing.Point(653, 812);
             this.Label_Text_PortGPS.Name = "Label_Text_PortGPS";
-            this.Label_Text_PortGPS.Size = new System.Drawing.Size(71, 29);
+            this.Label_Text_PortGPS.Size = new System.Drawing.Size(131, 29);
             this.Label_Text_PortGPS.TabIndex = 14;
-            this.Label_Text_PortGPS.Text = "2323";
+            this.Label_Text_PortGPS.Text = "센터 : 2323";
             this.Label_Text_PortGPS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Label_Explanation_PortGPS
             // 
             this.Label_Explanation_PortGPS.AutoSize = true;
             this.Label_Explanation_PortGPS.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Explanation_PortGPS.Location = new System.Drawing.Point(938, 569);
+            this.Label_Explanation_PortGPS.Location = new System.Drawing.Point(666, 655);
             this.Label_Explanation_PortGPS.Name = "Label_Explanation_PortGPS";
             this.Label_Explanation_PortGPS.Size = new System.Drawing.Size(102, 29);
             this.Label_Explanation_PortGPS.TabIndex = 13;
@@ -216,7 +227,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Pretendard Variable", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(461, 853);
+            this.label1.Location = new System.Drawing.Point(156, 842);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 25);
             this.label1.TabIndex = 18;
@@ -227,16 +238,102 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Pretendard Variable", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(709, 853);
+            this.label2.Location = new System.Drawing.Point(404, 842);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 25);
             this.label2.TabIndex = 19;
             this.label2.Text = "1500";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Label_Connection_GPS
+            // 
+            this.Label_Connection_GPS.AutoSize = true;
+            this.Label_Connection_GPS.Font = new System.Drawing.Font("Pretendard Variable Black", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label_Connection_GPS.ForeColor = System.Drawing.Color.IndianRed;
+            this.Label_Connection_GPS.Location = new System.Drawing.Point(632, 612);
+            this.Label_Connection_GPS.Name = "Label_Connection_GPS";
+            this.Label_Connection_GPS.Size = new System.Drawing.Size(172, 33);
+            this.Label_Connection_GPS.TabIndex = 21;
+            this.Label_Connection_GPS.Text = "GPS 포트 연결";
+            // 
+            // Button_Change_PortRPM
+            // 
+            this.Button_Change_PortRPM.Font = new System.Drawing.Font("Pretendard Variable SemiBold", 14F, System.Drawing.FontStyle.Bold);
+            this.Button_Change_PortRPM.Location = new System.Drawing.Point(941, 729);
+            this.Button_Change_PortRPM.Name = "Button_Change_PortRPM";
+            this.Button_Change_PortRPM.Size = new System.Drawing.Size(75, 36);
+            this.Button_Change_PortRPM.TabIndex = 36;
+            this.Button_Change_PortRPM.Text = "변경";
+            this.Button_Change_PortRPM.UseVisualStyleBackColor = true;
+            this.Button_Change_PortRPM.Click += new System.EventHandler(this.Button_Change_PortRPM_Click);
+            // 
+            // Button_Change_PortGPS
+            // 
+            this.Button_Change_PortGPS.Font = new System.Drawing.Font("Pretendard Variable SemiBold", 14F, System.Drawing.FontStyle.Bold);
+            this.Button_Change_PortGPS.Location = new System.Drawing.Point(681, 729);
+            this.Button_Change_PortGPS.Name = "Button_Change_PortGPS";
+            this.Button_Change_PortGPS.Size = new System.Drawing.Size(75, 36);
+            this.Button_Change_PortGPS.TabIndex = 35;
+            this.Button_Change_PortGPS.Text = "변경";
+            this.Button_Change_PortGPS.UseVisualStyleBackColor = true;
+            this.Button_Change_PortGPS.Click += new System.EventHandler(this.Button_Change_PortGPS_Click);
+            // 
+            // TextBox_Change_portRPM
+            // 
+            this.TextBox_Change_portRPM.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.TextBox_Change_portRPM.Location = new System.Drawing.Point(869, 687);
+            this.TextBox_Change_portRPM.Name = "TextBox_Change_portRPM";
+            this.TextBox_Change_portRPM.Size = new System.Drawing.Size(219, 36);
+            this.TextBox_Change_portRPM.TabIndex = 33;
+            this.TextBox_Change_portRPM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TextBox_Change_portGPS
+            // 
+            this.TextBox_Change_portGPS.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.TextBox_Change_portGPS.Location = new System.Drawing.Point(604, 687);
+            this.TextBox_Change_portGPS.Name = "TextBox_Change_portGPS";
+            this.TextBox_Change_portGPS.Size = new System.Drawing.Size(219, 36);
+            this.TextBox_Change_portGPS.TabIndex = 32;
+            this.TextBox_Change_portGPS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Label_Connection_RPM
+            // 
+            this.Label_Connection_RPM.AutoSize = true;
+            this.Label_Connection_RPM.Font = new System.Drawing.Font("Pretendard Variable Black", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label_Connection_RPM.ForeColor = System.Drawing.Color.IndianRed;
+            this.Label_Connection_RPM.Location = new System.Drawing.Point(887, 612);
+            this.Label_Connection_RPM.Name = "Label_Connection_RPM";
+            this.Label_Connection_RPM.Size = new System.Drawing.Size(176, 33);
+            this.Label_Connection_RPM.TabIndex = 37;
+            this.Label_Connection_RPM.Text = "RPM 포트 연결";
+            // 
+            // Label_Text_ShipPortGPS
+            // 
+            this.Label_Text_ShipPortGPS.AutoSize = true;
+            this.Label_Text_ShipPortGPS.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label_Text_ShipPortGPS.ForeColor = System.Drawing.Color.DimGray;
+            this.Label_Text_ShipPortGPS.Location = new System.Drawing.Point(653, 774);
+            this.Label_Text_ShipPortGPS.Name = "Label_Text_ShipPortGPS";
+            this.Label_Text_ShipPortGPS.Size = new System.Drawing.Size(131, 29);
+            this.Label_Text_ShipPortGPS.TabIndex = 38;
+            this.Label_Text_ShipPortGPS.Text = "선박 : 2323";
+            this.Label_Text_ShipPortGPS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // Label_Text_ShipPortRPM
+            // 
+            this.Label_Text_ShipPortRPM.AutoSize = true;
+            this.Label_Text_ShipPortRPM.Font = new System.Drawing.Font("Pretendard Variable", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label_Text_ShipPortRPM.ForeColor = System.Drawing.Color.DimGray;
+            this.Label_Text_ShipPortRPM.Location = new System.Drawing.Point(915, 774);
+            this.Label_Text_ShipPortRPM.Name = "Label_Text_ShipPortRPM";
+            this.Label_Text_ShipPortRPM.Size = new System.Drawing.Size(131, 29);
+            this.Label_Text_ShipPortRPM.TabIndex = 39;
+            this.Label_Text_ShipPortRPM.Text = "선박 : 2323";
+            this.Label_Text_ShipPortRPM.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Gauge
             // 
-            this.Gauge.Location = new System.Drawing.Point(419, 569);
+            this.Gauge.Location = new System.Drawing.Point(114, 558);
             this.Gauge.Name = "Gauge";
             this.Gauge.Size = new System.Drawing.Size(416, 322);
             this.Gauge.TabIndex = 11;
@@ -246,6 +343,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 903);
+            this.Controls.Add(this.Label_Text_ShipPortRPM);
+            this.Controls.Add(this.Label_Text_ShipPortGPS);
+            this.Controls.Add(this.Label_Connection_RPM);
+            this.Controls.Add(this.Button_Change_PortRPM);
+            this.Controls.Add(this.Button_Change_PortGPS);
+            this.Controls.Add(this.TextBox_Change_portRPM);
+            this.Controls.Add(this.TextBox_Change_portGPS);
+            this.Controls.Add(this.Label_Connection_GPS);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Label_Text_PortRPM);
@@ -291,6 +396,14 @@
         private System.Windows.Forms.Label Label_Explanation_PortGPS;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Label_Connection_GPS;
+        private System.Windows.Forms.Button Button_Change_PortRPM;
+        private System.Windows.Forms.Button Button_Change_PortGPS;
+        private System.Windows.Forms.TextBox TextBox_Change_portRPM;
+        private System.Windows.Forms.TextBox TextBox_Change_portGPS;
+        private System.Windows.Forms.Label Label_Connection_RPM;
+        private System.Windows.Forms.Label Label_Text_ShipPortGPS;
+        private System.Windows.Forms.Label Label_Text_ShipPortRPM;
     }
 }
 
