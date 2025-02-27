@@ -68,7 +68,6 @@ namespace Ship_ShipEmulator
         {
             if (mIsRunning) 
             {
-                mRpm = 0;
                 mIsRunning = false;
                 mGpsUDPClient.Close();
                 mRpmUDLClient.Close();
