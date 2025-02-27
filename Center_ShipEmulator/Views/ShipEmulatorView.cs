@@ -30,7 +30,7 @@ namespace ShipEmulator
         private bool mIsRunning = false;
         private int mGpsPort = 2323;
         private int mRpmPort = 2424;
-        private string mGPGGA;
+        private string mGPGGA = "$GPGGA,114455.532,3735.0079,N,12701.6446,E,1,03,7.9,48.8,M,19.6,M,0.0,0000*23";
         private int mRpm;
         private int mGetGPSPortData = 2323;
         private int mGetRPMPortData = 2424;
@@ -50,6 +50,7 @@ namespace ShipEmulator
             mTimer_UI = new System.Timers.Timer(100);
             mTimer_UI.Elapsed += Timer_UI;
             mTimer_UI.AutoReset = true;
+            mTimer_UI.Start();
         }
 
         // 해당 폼이 로드 될 때 불러오는 함수 
@@ -69,7 +70,11 @@ namespace ShipEmulator
             DotMarker.MarkerOverlay = DrawPoint;
 
             pointsList = new List<PointLatLng>();
-            mTimer_UI.Start();
+
+
+
+
+
         }
 
         // 마커가 지도 범위를 넘어갈 경우 해당 점에 맞춰 지도가 이동하는 함수
@@ -91,6 +96,9 @@ namespace ShipEmulator
                 mIsRunning = true;
                 DrawPoint.Markers.Clear();
 
+                Button_Start.Enabled = false;
+                Button_Stop.Enabled = true;
+
                 mThread_Gps = new Thread(GetGpsData);
                 mThread_Rpm = new Thread(GetRpmData);
 
@@ -99,9 +107,6 @@ namespace ShipEmulator
 
                 mThread_Gps.Start();
                 mThread_Rpm.Start();
-
-                Button_Start.Enabled = false;
-                Button_Stop.Enabled = true;
 
                 Button_Change_PortGPS.Enabled = false;
                 Button_Change_PortRPM.Enabled = false;
@@ -326,12 +331,12 @@ namespace ShipEmulator
                 {
                     Label_Text_Sentence.Invoke(new Action(() =>
                     {
-                        UpdateUI(gpsData);
+                        UpdateUI();
                     }));
                 }
                 else
                 {
-                    UpdateUI(gpsData);
+                    UpdateUI();
                 }
             }
             catch (Exception ex)
@@ -340,59 +345,62 @@ namespace ShipEmulator
             }
         }
 
-        private void UpdateUI(string[] gpsData)
+        private void UpdateUI()
         {
             Label_Text_Sentence.Text = mGPGGA;
-            Label_Text_Latitude.Text = $"{ChangeGPSLoacation(gpsData[2], gpsData[3]):F6}도";
-            Label_Text_Longitude.Text = $"{ChangeGPSLoacation(gpsData[4], gpsData[5]):F6}도";
+            Label_Text_Latitude.Text = $"{ChangeGPSLoacation(mGPGGA.Split(',')[2], mGPGGA.Split(',')[3]):F6}도";
+            Label_Text_Longitude.Text = $"{ChangeGPSLoacation(mGPGGA.Split(',')[4], mGPGGA.Split(',')[5]):F6}도";
             Label_Text_RPM.Text = $"{mRpm:0000}";
             Label_Text_PortGPS.Text = $"센터 : {mGpsPort.ToString()}";
             Label_Text_PortRPM.Text = $"센터 : {mRpmPort.ToString()}";
             Label_Text_ShipPortGPS.Text = $"선박 : {mGetGPSPortData.ToString()}";
             Label_Text_ShipPortRPM.Text = $"선박 : {mGetRPMPortData.ToString()}";
+
         }
 
         // GPS 포트 번호 변경 버튼 클릭시 실행되는 함수 
         private void Button_Change_PortGPS_Click(object sender, EventArgs e)
         {
-                if (TextBox_Change_portGPS.Text != "")
+            if (TextBox_Change_portGPS.Text != "")
+            {
+                if (int.Parse(TextBox_Change_portGPS.Text) == 50505 || int.Parse(TextBox_Change_portGPS.Text) == 50506)
                 {
-                    if (int.Parse(TextBox_Change_portGPS.Text) == 50505 || int.Parse(TextBox_Change_portGPS.Text) == 50506)
-                    {
-                        MessageBox.Show("사용할 수 없는 포트 번호입니다.");
-                    }
-                    else if (int.Parse(TextBox_Change_portGPS.Text) == mRpmPort)
-                    {
-                        MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
-                    }
-                    else
-                    {
-                        mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
-                        RestartGps();
-                    }
+                    MessageBox.Show("사용할 수 없는 포트 번호입니다.");
                 }
+                else if (int.Parse(TextBox_Change_portGPS.Text) == mRpmPort)
+                {
+                    MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
+                }
+                else
+                {
+                    mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
+                    RestartGps();
+                    UpdateUI();
+                }
+            }
         }
 
 
         private void Button_Change_PortRPM_Click(object sender, EventArgs e)
         {
-                if (TextBox_Change_portRPM.Text != "")
+            if (TextBox_Change_portRPM.Text != "")
+            {
+                if (int.Parse(TextBox_Change_portRPM.Text) == 50505 || int.Parse(TextBox_Change_portRPM.Text) == 50506)
                 {
-                    if (int.Parse(TextBox_Change_portRPM.Text) == 50505 || int.Parse(TextBox_Change_portRPM.Text) == 50506)
-                    {
-                        MessageBox.Show("사용할 수 없는 포트 번호입니다.");
-                    }
-                    else if (int.Parse(TextBox_Change_portRPM.Text) == mGpsPort)
-                    {
-                        MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
-                    }
-                    else
-                    {
-                        mRpmPort = int.Parse(TextBox_Change_portRPM.Text);
-                        RestartRPM();
-                    }
-
+                    MessageBox.Show("사용할 수 없는 포트 번호입니다.");
                 }
+                else if (int.Parse(TextBox_Change_portRPM.Text) == mGpsPort)
+                {
+                    MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
+                }
+                else
+                {
+                    mRpmPort = int.Parse(TextBox_Change_portRPM.Text);
+                    RestartRPM();
+                    UpdateUI();
+                }
+
+            }
         }
 
         private async void StartChangeGpsPort()
@@ -428,7 +436,6 @@ namespace ShipEmulator
 
             await GetChangeRpmPort();
         }
-
     }
 }
 

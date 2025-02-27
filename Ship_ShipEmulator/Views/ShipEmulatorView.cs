@@ -30,11 +30,13 @@ namespace Ship_ShipEmulator
             mTimer_UI = new System.Windows.Forms.Timer();
             mTimer_UI.Interval = 100;
             mTimer_UI.Tick += Timer_UI;
+            mTimer_UI.Start();
+            
         }
 
         private void ShipEmulatorView_Load(object sender, EventArgs e)
         {
-            mTimer_UI.Start();
+            
         }
 
         // 송신시작 버튼을 클릭하였을 때 불러오는 함수 
@@ -47,11 +49,10 @@ namespace Ship_ShipEmulator
                 mGpsUDPClient = new UdpClient();
                 mRpmUDLClient = new UdpClient();
                 mIsRunning = true;
-
-                mThread_Send = new Thread(Send);
+                Thread mThread_Send = new Thread(Send);
                 mThread_Send.IsBackground = true;
                 mThread_Send.Start();
-                mTimer_UI.Start();
+
 
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
@@ -69,7 +70,6 @@ namespace Ship_ShipEmulator
             {
                 mRpm = 0;
                 mIsRunning = false;
-                mThread_Send.Join();
                 mGpsUDPClient.Close();
                 mRpmUDLClient.Close();
 
