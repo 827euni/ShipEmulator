@@ -40,8 +40,8 @@ namespace ShipEmulator
         private DateTime mGetGpsTime;
         private DateTime mGetRpmTime;
 
-        private DateTime mConnectGpsTime;
-        private DateTime mConnectRpmTime;
+        private DateTime? mConnectGpsTime;
+        private DateTime? mConnectRpmTime;
 
         DatabaseHelper mDatabaseHelper = new DatabaseHelper();
         private List<PointLatLng> pointsList;
@@ -401,18 +401,20 @@ namespace ShipEmulator
             {
                 Label_Connection_GPS.ForeColor = Color.IndianRed;
             }
-            else
+            else if (mConnectGpsTime.HasValue && (DateTime.Now - mConnectGpsTime.Value).TotalSeconds >= 3)
             {
                 Label_Connection_GPS.ForeColor = Color.Green;
+                mConnectGpsTime = null;
             }
 
             if ((DateTime.Now - mGetRpmTime).TotalSeconds >= 3)
             {
                 Label_Connection_RPM.ForeColor = Color.IndianRed;
             }
-            else
+            else if (mConnectRpmTime.HasValue && (DateTime.Now - mConnectRpmTime.Value).TotalSeconds >= 3)
             {
                 Label_Connection_RPM.ForeColor = Color.Green;
+                mConnectRpmTime = null;
             }
 
 
