@@ -356,6 +356,30 @@ namespace ShipEmulator
             Label_Text_ShipPortGPS.Text = $"선박 : {mGetGPSPortData.ToString()}";
             Label_Text_ShipPortRPM.Text = $"선박 : {mGetRPMPortData.ToString()}";
 
+            if (mGpsPort == mGetGPSPortData)
+            {
+                Label_Text_PortGPS.ForeColor = Color.DimGray;
+                Label_Text_ShipPortGPS.ForeColor = Color.DimGray;
+            }
+
+            else 
+            {
+                Label_Text_PortGPS.ForeColor = Color.IndianRed;
+                Label_Text_ShipPortGPS.ForeColor = Color.IndianRed;
+            }
+
+            if (mRpmPort == mGetRPMPortData)
+            {
+                Label_Text_PortRPM.ForeColor = Color.DimGray;
+                Label_Text_ShipPortRPM.ForeColor = Color.DimGray;
+            }
+
+            else
+            {
+                Label_Text_PortRPM.ForeColor = Color.IndianRed;
+                Label_Text_ShipPortRPM.ForeColor = Color.IndianRed;
+            }
+
         }
 
         // GPS 포트 번호 변경 버튼 클릭시 실행되는 함수 
