@@ -42,8 +42,6 @@
             this.Label_Explanation_PortRPM = new System.Windows.Forms.Label();
             this.Label_Text_PortGPS = new System.Windows.Forms.Label();
             this.Label_Explanation_PortGPS = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.Label_Connection_GPS = new System.Windows.Forms.Label();
             this.Button_Change_PortRPM = new System.Windows.Forms.Button();
             this.Button_Change_PortGPS = new System.Windows.Forms.Button();
@@ -169,7 +167,7 @@
             // 
             this.Label_Text_RPM.AutoSize = true;
             this.Label_Text_RPM.Font = new System.Drawing.Font("Pretendard Variable Black", 70F, System.Drawing.FontStyle.Bold);
-            this.Label_Text_RPM.Location = new System.Drawing.Point(186, 687);
+            this.Label_Text_RPM.Location = new System.Drawing.Point(200, 690);
             this.Label_Text_RPM.Name = "Label_Text_RPM";
             this.Label_Text_RPM.Size = new System.Drawing.Size(257, 113);
             this.Label_Text_RPM.TabIndex = 10;
@@ -222,28 +220,6 @@
             this.Label_Explanation_PortGPS.TabIndex = 13;
             this.Label_Explanation_PortGPS.Text = "GPS포트";
             this.Label_Explanation_PortGPS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Pretendard Variable", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(156, 842);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 25);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "500";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Pretendard Variable", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(404, 842);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 25);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "1500";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Label_Connection_GPS
             // 
@@ -333,9 +309,9 @@
             // 
             // Gauge
             // 
-            this.Gauge.Location = new System.Drawing.Point(114, 558);
+            this.Gauge.Location = new System.Drawing.Point(24, 474);
             this.Gauge.Name = "Gauge";
-            this.Gauge.Size = new System.Drawing.Size(416, 322);
+            this.Gauge.Size = new System.Drawing.Size(694, 450);
             this.Gauge.TabIndex = 11;
             // 
             // ShipEmulatorView
@@ -351,8 +327,6 @@
             this.Controls.Add(this.TextBox_Change_portRPM);
             this.Controls.Add(this.TextBox_Change_portGPS);
             this.Controls.Add(this.Label_Connection_GPS);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.Label_Text_PortRPM);
             this.Controls.Add(this.Label_Explanation_PortRPM);
             this.Controls.Add(this.Label_Text_PortGPS);
@@ -394,8 +368,6 @@
         private System.Windows.Forms.Label Label_Explanation_PortRPM;
         private System.Windows.Forms.Label Label_Text_PortGPS;
         private System.Windows.Forms.Label Label_Explanation_PortGPS;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Label_Connection_GPS;
         private System.Windows.Forms.Button Button_Change_PortRPM;
         private System.Windows.Forms.Button Button_Change_PortGPS;
