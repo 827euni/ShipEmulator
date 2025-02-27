@@ -50,9 +50,9 @@
             this.TextBox_Change_portRPM = new System.Windows.Forms.TextBox();
             this.TextBox_Change_portGPS = new System.Windows.Forms.TextBox();
             this.Label_Connection_RPM = new System.Windows.Forms.Label();
-            this.Gauge = new ShipEmulator.rpmGauge();
             this.Label_Text_ShipPortGPS = new System.Windows.Forms.Label();
             this.Label_Text_ShipPortRPM = new System.Windows.Forms.Label();
+            this.Gauge = new ShipEmulator.rpmGauge();
             this.SuspendLayout();
             // 
             // Label_Explanation_Sentence
@@ -143,6 +143,7 @@
             // 
             // Button_Stop
             // 
+            this.Button_Stop.Enabled = false;
             this.Button_Stop.Font = new System.Drawing.Font("Pretendard Variable ExtraBold", 16F, System.Drawing.FontStyle.Bold);
             this.Button_Stop.Location = new System.Drawing.Point(1124, 12);
             this.Button_Stop.Name = "Button_Stop";
@@ -306,13 +307,6 @@
             this.Label_Connection_RPM.TabIndex = 37;
             this.Label_Connection_RPM.Text = "RPM 포트 연결";
             // 
-            // Gauge
-            // 
-            this.Gauge.Location = new System.Drawing.Point(114, 558);
-            this.Gauge.Name = "Gauge";
-            this.Gauge.Size = new System.Drawing.Size(416, 322);
-            this.Gauge.TabIndex = 11;
-            // 
             // Label_Text_ShipPortGPS
             // 
             this.Label_Text_ShipPortGPS.AutoSize = true;
@@ -336,6 +330,13 @@
             this.Label_Text_ShipPortRPM.TabIndex = 39;
             this.Label_Text_ShipPortRPM.Text = "선박 : 2323";
             this.Label_Text_ShipPortRPM.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // Gauge
+            // 
+            this.Gauge.Location = new System.Drawing.Point(114, 558);
+            this.Gauge.Name = "Gauge";
+            this.Gauge.Size = new System.Drawing.Size(416, 322);
+            this.Gauge.TabIndex = 11;
             // 
             // ShipEmulatorView
             // 

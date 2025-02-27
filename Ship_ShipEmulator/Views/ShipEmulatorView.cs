@@ -32,6 +32,11 @@ namespace Ship_ShipEmulator
             mTimer_UI.Tick += Timer_UI;
         }
 
+        private void ShipEmulatorView_Load(object sender, EventArgs e)
+        {
+            mTimer_UI.Start();
+        }
+
         // 송신시작 버튼을 클릭하였을 때 불러오는 함수 
         private void Button_Start_Click(object sender, EventArgs e)
         {
@@ -51,6 +56,9 @@ namespace Ship_ShipEmulator
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
 
+                Button_Change_PortGPS.Enabled = false;
+                Button_Change_PortRPM.Enabled = false;
+
             }
         }
 
@@ -65,10 +73,11 @@ namespace Ship_ShipEmulator
                 mGpsUDPClient.Close();
                 mRpmUDLClient.Close();
 
-                mTimer_UI.Stop();
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
 
+                Button_Change_PortGPS.Enabled = true;
+                Button_Change_PortRPM.Enabled = true;
             }
         }
 
@@ -248,13 +257,19 @@ namespace Ship_ShipEmulator
 
         private void Timer_UI(object sender, EventArgs e)
         {
-            if (mIsRunning)
+            if (string.IsNullOrEmpty(mGPGGA)) return;
+            try
             {
                 Label_Text_Sentence.Text = mGPGGA;
                 Label_Text_RPM.Text = mRpm.ToString("0000");
                 Label_Text_Latitude.Text = $"{ChangeGPSLoacation(mGPGGA.Split(',')[2], mGPGGA.Split(',')[3]).ToString("F6")}도";
                 Label_Text_Longitude.Text = $"{ChangeGPSLoacation(mGPGGA.Split(',')[4], mGPGGA.Split(',')[5]).ToString("F6")}도";
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+
     }
 }

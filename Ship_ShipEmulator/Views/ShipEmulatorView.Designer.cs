@@ -66,6 +66,7 @@
             // 
             // Button_Stop
             // 
+            this.Button_Stop.Enabled = false;
             this.Button_Stop.Font = new System.Drawing.Font("Pretendard Variable ExtraBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Button_Stop.Location = new System.Drawing.Point(554, 147);
             this.Button_Stop.Name = "Button_Stop";
@@ -310,6 +311,7 @@
             this.Name = "ShipEmulatorView";
             this.Text = "SHIP";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShipEmulatorView_FormClosing);
+            this.Load += new System.EventHandler(this.ShipEmulatorView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
