@@ -22,7 +22,7 @@ namespace ShipEmulator
     public partial class ShipEmulatorView : Form
     {
         private UdpClient mGpsUDPClient;
-        private UdpClient mRpmUDLClient;
+        private UdpClient mRpmUDPClient;
         private UdpClient mChangePortGPS;
         private UdpClient mChangePortRPM;
         private Thread mThread_Gps;
@@ -153,12 +153,12 @@ namespace ShipEmulator
         {
             if (mIsRunning)
             {
-                if (mRpmUDLClient != null)
+                if (mRpmUDPClient != null)
                 {
-                    mRpmUDLClient.Close();
-                    mRpmUDLClient = null;
+                    mRpmUDPClient.Close();
+                    mRpmUDPClient = null;
                 }
-                mRpmUDLClient = new UdpClient(mRpmPort);
+                mRpmUDPClient = new UdpClient(mRpmPort);
 
             }
         }
@@ -218,8 +218,11 @@ namespace ShipEmulator
             }
             finally
             {
-                mGpsUDPClient.Close();
-                mGpsUDPClient = null;
+                if (mGpsUDPClient != null)
+                {
+                    mGpsUDPClient.Close();
+                    mGpsUDPClient = null;
+                }
             }
         }
 
@@ -231,13 +234,16 @@ namespace ShipEmulator
             int rpmData;
             try
             {
-                mRpmUDLClient = new UdpClient(mRpmPort);
-                mRpmUDLClient.Client.ReceiveTimeout = 1000;
+                if (mRpmUDPClient == null)
+                {
+                    mRpmUDPClient = new UdpClient(mRpmPort);
+                }
+                mRpmUDPClient.Client.ReceiveTimeout = 1000;
                 while (mIsRunning)
                 {
                     try
                     {
-                        getBytes = mRpmUDLClient.Receive(ref point);
+                        getBytes = mRpmUDPClient.Receive(ref point);
                         mGetRpmTime = DateTime.Now;
                         if (mConnectRpmTime == null)
                         {
@@ -260,8 +266,11 @@ namespace ShipEmulator
             }
             finally
             {
-                mRpmUDLClient.Close();
-                mRpmUDLClient = null;
+                if (mRpmUDPClient != null)
+                {
+                    mRpmUDPClient.Close();
+                    mRpmUDPClient = null;
+                }
             }
         }
 
