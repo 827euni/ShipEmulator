@@ -30,10 +30,18 @@ namespace ShipEmulator
         private bool mIsRunning = false;
         private int mGpsPort = 2323;
         private int mRpmPort = 2424;
+
         private string mGPGGA = "$GPGGA,114455.532,3735.0079,N,12701.6446,E,1,03,7.9,48.8,M,19.6,M,0.0,0000*23";
         private int mRpm;
+
         private int mGetGPSPortData = 2323;
         private int mGetRPMPortData = 2424;
+
+        private DateTime mGetGpsTime;
+        private DateTime mGetRpmTime;
+
+        private DateTime mConnectGpsTime;
+        private DateTime mConnectRpmTime;
 
         DatabaseHelper mDatabaseHelper = new DatabaseHelper();
         private List<PointLatLng> pointsList;
@@ -71,8 +79,8 @@ namespace ShipEmulator
 
             pointsList = new List<PointLatLng>();
 
-
-
+            mGetGpsTime = DateTime.Now.AddSeconds(-5);
+            mGetRpmTime = DateTime.Now.AddSeconds(-5);
 
 
         }
@@ -178,6 +186,11 @@ namespace ShipEmulator
                     try
                     {
                         getBytes = mGpsUDPClient.Receive(ref point);
+                        mGetGpsTime = DateTime.Now;
+                        if (mConnectGpsTime == null)
+                        {
+                            mConnectGpsTime = DateTime.Now;
+                        }
                         getGPS = Encoding.UTF8.GetString(getBytes);
                         Latitude = ChangeGPSLoacation(getGPS.Split(',')[2], getGPS.Split(',')[3]);
                         Longitude = ChangeGPSLoacation(getGPS.Split(',')[4], getGPS.Split(',')[5]);
@@ -216,7 +229,6 @@ namespace ShipEmulator
             IPEndPoint point = new IPEndPoint(IPAddress.Any, mRpmPort);
             byte[] getBytes;
             int rpmData;
-
             try
             {
                 mRpmUDLClient = new UdpClient(mRpmPort);
@@ -226,6 +238,11 @@ namespace ShipEmulator
                     try
                     {
                         getBytes = mRpmUDLClient.Receive(ref point);
+                        mGetRpmTime = DateTime.Now;
+                        if (mConnectRpmTime == null)
+                        {
+                            mConnectRpmTime = DateTime.Now;
+                        }
                         rpmData = BitConverter.ToInt32(getBytes, 0);
                         mDatabaseHelper.AddRPM(rpmData);
                         Gauge.rpm = rpmData;
@@ -380,6 +397,26 @@ namespace ShipEmulator
                 Label_Text_ShipPortRPM.ForeColor = Color.IndianRed;
             }
 
+            if ((DateTime.Now - mGetGpsTime).TotalSeconds >= 3)
+            {
+                Label_Connection_GPS.ForeColor = Color.IndianRed;
+            }
+            else
+            {
+                Label_Connection_GPS.ForeColor = Color.Green;
+            }
+
+            if ((DateTime.Now - mGetRpmTime).TotalSeconds >= 3)
+            {
+                Label_Connection_RPM.ForeColor = Color.IndianRed;
+            }
+            else
+            {
+                Label_Connection_RPM.ForeColor = Color.Green;
+            }
+
+
+
         }
 
         // GPS 포트 번호 변경 버튼 클릭시 실행되는 함수 
@@ -460,6 +497,7 @@ namespace ShipEmulator
 
             await GetChangeRpmPort();
         }
+
     }
 }
 

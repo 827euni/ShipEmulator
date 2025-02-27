@@ -249,7 +249,7 @@
             // 
             this.Label_Connection_GPS.AutoSize = true;
             this.Label_Connection_GPS.Font = new System.Drawing.Font("Pretendard Variable Black", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Connection_GPS.ForeColor = System.Drawing.Color.Green;
+            this.Label_Connection_GPS.ForeColor = System.Drawing.Color.IndianRed;
             this.Label_Connection_GPS.Location = new System.Drawing.Point(632, 612);
             this.Label_Connection_GPS.Name = "Label_Connection_GPS";
             this.Label_Connection_GPS.Size = new System.Drawing.Size(172, 33);
@@ -300,7 +300,7 @@
             // 
             this.Label_Connection_RPM.AutoSize = true;
             this.Label_Connection_RPM.Font = new System.Drawing.Font("Pretendard Variable Black", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label_Connection_RPM.ForeColor = System.Drawing.Color.Green;
+            this.Label_Connection_RPM.ForeColor = System.Drawing.Color.IndianRed;
             this.Label_Connection_RPM.Location = new System.Drawing.Point(887, 612);
             this.Label_Connection_RPM.Name = "Label_Connection_RPM";
             this.Label_Connection_RPM.Size = new System.Drawing.Size(176, 33);
