@@ -23,8 +23,8 @@ namespace ShipEmulator
     {
         private UdpClient mGpsUDPClient;
         private UdpClient mRpmUDLClient;
-        //private UdpClient mChangePortGPS;
-        //private UdpClient mChangePortRPM;
+        private UdpClient mChangePortGPS;
+        private UdpClient mChangePortRPM;
         private Thread mThread_Gps;
         private Thread mThread_Rpm;
         private bool mIsRunning = false;
@@ -32,6 +32,7 @@ namespace ShipEmulator
         private int mRpmPort = 2424;
         private volatile string mGPGGA;
         private int mRpm;
+        private int mGetGPSPortData;
 
         DatabaseHelper mDatabaseHelper = new DatabaseHelper();
         private List<PointLatLng> pointsList;
@@ -43,6 +44,7 @@ namespace ShipEmulator
         public ShipEmulatorView()
         {
             InitializeComponent();
+            StartChangeGpsPort();
             mTimer_UI = new System.Timers.Timer(100);
             mTimer_UI.Elapsed += Timer_UI;
             mTimer_UI.AutoReset = true;
@@ -113,7 +115,6 @@ namespace ShipEmulator
         {
             if (mIsRunning)
             {
-                Console.WriteLine("타이머 중지 호출!");
                 mIsRunning = false;
 
                 mTimer_UI.Stop();
@@ -183,7 +184,7 @@ namespace ShipEmulator
         //    }
         //}
 
-        //// 포트 변경 이후 GPS UDP 클라이언트 재시작시키는 함수 
+        // 포트 변경 이후 GPS UDP 클라이언트 재시작시키는 함수 
         private void RestartGps()
         {
             if (mIsRunning)
@@ -425,6 +426,7 @@ namespace ShipEmulator
             Label_Text_Latitude.Text = $"{ChangeGPSLoacation(gpsData[2], gpsData[3]):F6}도";
             Label_Text_Longitude.Text = $"{ChangeGPSLoacation(gpsData[4], gpsData[5]):F6}도";
             Label_Text_RPM.Text = $"{mRpm:0000}";
+            Label_Text_PortGPS.Text = mGetGPSPortData.ToString();
         }
 
         // GPS 포트 번호 변경 버튼 클릭시 실행되는 함수 
@@ -434,7 +436,11 @@ namespace ShipEmulator
             {
                 if (TextBox_Change_portGPS.Text != "")
                 {
-                    if (int.Parse(TextBox_Change_portGPS.Text) == mRpmPort)
+                    if (int.Parse(TextBox_Change_portGPS.Text) == 50505 || int.Parse(TextBox_Change_portGPS.Text) == 50506)
+                    {
+                        MessageBox.Show("사용할 수 없는 포트 번호입니다.");
+                    }
+                    else if (int.Parse(TextBox_Change_portGPS.Text) == mRpmPort)
                     {
                         MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
                     }
@@ -456,6 +462,23 @@ namespace ShipEmulator
         private void Button_Change_PortRPM_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private async void StartChangeGpsPort()
+        {
+            if (mChangePortGPS == null)
+            {
+                mChangePortGPS = new UdpClient(50505);
+                await GetChangeGpsPort();
+            }
+        }
+
+        private async Task GetChangeGpsPort() 
+        {
+            UdpReceiveResult getGpsPort = await mChangePortGPS.ReceiveAsync();
+            mGetGPSPortData = BitConverter.ToInt32(getGpsPort.Buffer, 0);
+
+            await GetChangeGpsPort();
         }
 
     }
