@@ -69,6 +69,7 @@ namespace ShipEmulator
             DotMarker.MarkerOverlay = DrawPoint;
 
             pointsList = new List<PointLatLng>();
+            mTimer_UI.Start();
         }
 
         // 마커가 지도 범위를 넘어갈 경우 해당 점에 맞춰 지도가 이동하는 함수
@@ -99,12 +100,11 @@ namespace ShipEmulator
                 mThread_Gps.Start();
                 mThread_Rpm.Start();
 
-                mTimer_UI.Start();
-
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
 
                 Button_Change_PortGPS.Enabled = false;
+                Button_Change_PortRPM.Enabled = false;
             }
         }
 
@@ -115,12 +115,11 @@ namespace ShipEmulator
             {
                 mIsRunning = false;
 
-                mTimer_UI.Stop();
-
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
 
                 Button_Change_PortGPS.Enabled = true;
+                Button_Change_PortRPM.Enabled = true;
 
             }
         }
@@ -315,7 +314,7 @@ namespace ShipEmulator
         private void Timer_UI(object sender, ElapsedEventArgs e)
         {
 
-            if (!mIsRunning || string.IsNullOrEmpty(mGPGGA)) return;
+            if (string.IsNullOrEmpty(mGPGGA)) return;
 
             try
             {
@@ -377,8 +376,6 @@ namespace ShipEmulator
 
         private void Button_Change_PortRPM_Click(object sender, EventArgs e)
         {
-            if (!mIsRunning)
-            {
                 if (TextBox_Change_portRPM.Text != "")
                 {
                     if (int.Parse(TextBox_Change_portRPM.Text) == 50505 || int.Parse(TextBox_Change_portRPM.Text) == 50506)
@@ -396,7 +393,6 @@ namespace ShipEmulator
                     }
 
                 }
-            }
         }
 
         private async void StartChangeGpsPort()
