@@ -30,10 +30,10 @@ namespace ShipEmulator
         private bool mIsRunning = false;
         private int mGpsPort = 2323;
         private int mRpmPort = 2424;
-        private volatile string mGPGGA;
+        private string mGPGGA;
         private int mRpm;
-        private int mGetGPSPortData;
-        private int mGetRPMPortData;
+        private int mGetGPSPortData = 2323;
+        private int mGetRPMPortData = 2424;
 
         DatabaseHelper mDatabaseHelper = new DatabaseHelper();
         private List<PointLatLng> pointsList;
