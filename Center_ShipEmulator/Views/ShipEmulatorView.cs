@@ -103,6 +103,8 @@ namespace ShipEmulator
 
                 Button_Start.Enabled = false;
                 Button_Stop.Enabled = true;
+
+                Button_Change_PortGPS.Enabled = false;
             }
         }
 
@@ -118,21 +120,20 @@ namespace ShipEmulator
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
 
+                Button_Change_PortGPS.Enabled = true;
+
             }
         }
 
         // 포트 변경 이후 GPS UDP 클라이언트 재시작시키는 함수 
         private void RestartGps()
         {
-            if (mIsRunning)
-            {
                 if (mGpsUDPClient != null)
                 {
                     mGpsUDPClient.Close();
                     mGpsUDPClient = null;
                 }
                 mGpsUDPClient = new UdpClient(mGpsPort);
-            }
         }
 
         // 포트 변경 이후 RPM UDP 클라이언트 재시작시키는 함수 
@@ -346,15 +347,15 @@ namespace ShipEmulator
             Label_Text_Latitude.Text = $"{ChangeGPSLoacation(gpsData[2], gpsData[3]):F6}도";
             Label_Text_Longitude.Text = $"{ChangeGPSLoacation(gpsData[4], gpsData[5]):F6}도";
             Label_Text_RPM.Text = $"{mRpm:0000}";
-            Label_Text_PortGPS.Text = mGetGPSPortData.ToString();
-            Label_Text_PortRPM.Text = mGetRPMPortData.ToString();
+            Label_Text_PortGPS.Text = $"센터 : {mGpsPort.ToString()}";
+            Label_Text_PortRPM.Text = $"센터 : {mRpmPort.ToString()}";
+            Label_Text_ShipPortGPS.Text = $"선박 : {mGetGPSPortData.ToString()}";
+            Label_Text_ShipPortRPM.Text = $"선박 : {mGetRPMPortData.ToString()}";
         }
 
         // GPS 포트 번호 변경 버튼 클릭시 실행되는 함수 
         private void Button_Change_PortGPS_Click(object sender, EventArgs e)
         {
-            if (mIsRunning)
-            {
                 if (TextBox_Change_portGPS.Text != "")
                 {
                     if (int.Parse(TextBox_Change_portGPS.Text) == 50505 || int.Parse(TextBox_Change_portGPS.Text) == 50506)
@@ -371,13 +372,12 @@ namespace ShipEmulator
                         RestartGps();
                     }
                 }
-            }
         }
 
 
         private void Button_Change_PortRPM_Click(object sender, EventArgs e)
         {
-            if (mIsRunning)
+            if (!mIsRunning)
             {
                 if (TextBox_Change_portRPM.Text != "")
                 {
