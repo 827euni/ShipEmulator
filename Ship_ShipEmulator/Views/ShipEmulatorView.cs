@@ -80,8 +80,8 @@ namespace Ship_ShipEmulator
         private string AddGPS()
         {
             // 선박이 움직이는 것처럼 어느 정도 범위를 제한하여 난수 발생
-            mLatitude += (random.NextDouble() - 0.5) * mRpm * 0.00001;
-            mLongitude += (random.NextDouble() - 0.5) * mRpm * 0.00001;
+            mLatitude += (random.NextDouble() - 0.5) * mRpm * 0.000005;
+            mLongitude += (random.NextDouble() - 0.5) * mRpm * 0.000005;
             string time = DateTime.UtcNow.ToString("HHmmss.fff");
 
             int Degree_Latitude = (int)mLatitude;
