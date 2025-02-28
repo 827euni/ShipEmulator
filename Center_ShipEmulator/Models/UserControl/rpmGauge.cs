@@ -72,6 +72,7 @@ namespace ShipEmulator
             }
         }
 
+        // RPM 게이지에 0, 1/4, 1/3, 1/2, 3/4, 2/3, 1 지점에 레이블을 그려 현재 RPM이 어느 정도 위치에 있는지 확인 시켜주는 함수  
         private void DrawRPMLabels(Graphics g, int x, int y, int r, float start, float final)
         {
             Font font = new Font("Pretendard", 13); // 여기서부터 지금 변경해야함 

@@ -34,10 +34,6 @@ namespace Ship_ShipEmulator
             
         }
 
-        private void ShipEmulatorView_Load(object sender, EventArgs e)
-        {
-            
-        }
 
         // 송신시작 버튼을 클릭하였을 때 불러오는 함수 
         private void Button_Start_Click(object sender, EventArgs e)
@@ -220,6 +216,7 @@ namespace Ship_ShipEmulator
             }
         }
 
+        // 송신중에는 X버튼을 눌러 창을 닫지 못하게 하는 함수 
         private void ShipEmulatorView_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (mIsRunning)
@@ -254,6 +251,7 @@ namespace Ship_ShipEmulator
             return 0;
         }
 
+        // 타이머를 사용하여 0.1초에 한 번 UI의 Label을 변화시키는 함수 
         private void Timer_UI(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(mGPGGA)) return;

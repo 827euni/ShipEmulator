@@ -27,6 +27,7 @@ namespace ShipEmulator.Models
             this.radius = 5;
         }
 
+        // 지도에 그려지는 점과 선을 커스터마이징하여 화면에 뿌리는 함수 
         public override void OnRender(Graphics g)
         {
             // 원의 시작 점 보정을 위해서 반지름의 절반 만큼을 빼서 보정함. 
@@ -44,7 +45,7 @@ namespace ShipEmulator.Models
                     g.DrawLine(pen, points[last - 5], points[last - 4]);
                     g.DrawLine(pen, points[last - 4], points[last - 3]);
                     g.DrawLine(pen, points[last - 3], points[last - 2]);
-                    g.DrawLine(pen, points[last - 2], points[last-1]);
+                    g.DrawLine(pen, points[last - 2], points[last - 1]);
             }
         }
     }
