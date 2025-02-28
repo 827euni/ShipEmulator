@@ -32,7 +32,7 @@ namespace ShipEmulator
         private int mRpmPort = 2424;
 
         private string mGPGGA = "$GPGGA,114455.532,3735.0079,N,12701.6446,E,1,03,7.9,48.8,M,19.6,M,0.0,0000*23";
-        private int mRpm;
+        private int mRpm = 1224;
 
         private int mGetGPSPortData = 2323;
         private int mGetRPMPortData = 2424;
@@ -167,7 +167,7 @@ namespace ShipEmulator
         private void GetGpsData()
         {
             Console.WriteLine($"GET{mGpsPort}");
-            IPEndPoint point = new IPEndPoint(IPAddress.Any, mGpsPort);
+            IPEndPoint point = new IPEndPoint(IPAddress.Parse("192.168.0.53"), mGpsPort);
             byte[] getBytes;
             string getGPS;
             Decimal Latitude;
@@ -229,7 +229,7 @@ namespace ShipEmulator
         // 선박으로부터 RPM 데이터를 받아와 DB에 저장하고, 화면에 텍스트로 보여주는 함수 
         private void GetRpmData()
         {
-            IPEndPoint point = new IPEndPoint(IPAddress.Any, mRpmPort);
+            IPEndPoint point = new IPEndPoint(IPAddress.Parse("192.168.0.53"), mRpmPort);
             byte[] getBytes;
             int rpmData;
             try
