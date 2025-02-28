@@ -140,8 +140,8 @@ namespace Ship_ShipEmulator
                 GpsData = Encoding.UTF8.GetBytes(Gps);
                 RpmData = BitConverter.GetBytes(Rpm);
 
-                mGpsUDPClient.Send(GpsData, GpsData.Length, "127.0.0.1", mGpsPort);
-                mRpmUDPClient.Send(RpmData, RpmData.Length, "127.0.0.1", mRpmPort);
+                mGpsUDPClient.Send(GpsData, GpsData.Length, "192.168.0.28", mGpsPort);
+                mRpmUDPClient.Send(RpmData, RpmData.Length, "192.168.0.28", mRpmPort);
                 Thread.Sleep(time);
             }
         }
@@ -166,7 +166,7 @@ namespace Ship_ShipEmulator
                     using (UdpClient udpClient = new UdpClient())
                     {
                         byte[] GPSPort = BitConverter.GetBytes(mGpsPort);
-                        await udpClient.SendAsync(GPSPort, GPSPort.Length, "127.0.0.1", 50505);
+                        await udpClient.SendAsync(GPSPort, GPSPort.Length, "192.168.0.28", 50505);
                     }
                 }
             }
@@ -192,7 +192,7 @@ namespace Ship_ShipEmulator
                     using (UdpClient udpClient = new UdpClient())
                     {
                         byte[] RPMPort = BitConverter.GetBytes(mRpmPort);
-                        udpClient.Send(RPMPort, RPMPort.Length, "127.0.0.1", 50506);
+                        udpClient.Send(RPMPort, RPMPort.Length, "192.168.0.28", 50506);
                     }
                 }
             }
