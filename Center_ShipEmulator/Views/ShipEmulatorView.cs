@@ -70,7 +70,7 @@ namespace ShipEmulator
             gMap_Main.Position = new PointLatLng(37.2328660, 131.8654529);
             gMap_Main.MinZoom = 5;
             gMap_Main.MaxZoom = 50;
-            gMap_Main.Zoom = 13;
+            gMap_Main.Zoom = 14;
             gMap_Main.ShowCenter = false;
 
             DrawPoint = new GMapOverlay("point");
@@ -90,11 +90,24 @@ namespace ShipEmulator
         {
             RectLatLng viewArea = gMap_Main.ViewArea;
 
+            // 마킹 위치가 현재 뷰 영역 밖에 있을 때만 이동
             if (!viewArea.Contains(marking))
             {
-                gMap_Main.Position = marking;
+                double step = 0.005;
+                
+                // 천천히 움직이므로 이러한 제한을 주기 전보다 훨씬 더 부드럽게 이동할 수 있음 
+                if (gMap_Main.Position.Lat < marking.Lat)
+                    gMap_Main.Position = new PointLatLng(gMap_Main.Position.Lat + step, gMap_Main.Position.Lng);
+                else if (gMap_Main.Position.Lat > marking.Lat)
+                    gMap_Main.Position = new PointLatLng(gMap_Main.Position.Lat - step, gMap_Main.Position.Lng);
+
+                if (gMap_Main.Position.Lng < marking.Lng)
+                    gMap_Main.Position = new PointLatLng(gMap_Main.Position.Lat, gMap_Main.Position.Lng + step);
+                else if (gMap_Main.Position.Lng > marking.Lng)
+                    gMap_Main.Position = new PointLatLng(gMap_Main.Position.Lat, gMap_Main.Position.Lng - step);
             }
         }
+
 
         // 수신 시작 버튼 클릭 시 불러오는 함수 
         private void Button_Start_Click(object sender, EventArgs e)
@@ -439,15 +452,16 @@ namespace ShipEmulator
             {
                 if (int.Parse(TextBox_Change_portGPS.Text) == 50505 || int.Parse(TextBox_Change_portGPS.Text) == 50506)
                 {
-                    MessageBox.Show("사용할 수 없는 포트 번호입니다.");
+                    ShowMessage("사용할 수 없는 포트 번호입니다.", "gps");
                 }
                 else if (int.Parse(TextBox_Change_portGPS.Text) == mRpmPort)
                 {
-                    MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
+                    ShowMessage("GPS포트와 RPM포트는 동일할 수 없습니다.", "gps");
                 }
                 else
                 {
                     mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
+                    message_gpsPort.Visible = false;
                     RestartGps();
                     UpdateUI();
                 }
@@ -461,19 +475,35 @@ namespace ShipEmulator
             {
                 if (int.Parse(TextBox_Change_portRPM.Text) == 50505 || int.Parse(TextBox_Change_portRPM.Text) == 50506)
                 {
-                    MessageBox.Show("사용할 수 없는 포트 번호입니다.");
+                    ShowMessage("사용할 수 없는 포트 번호입니다.", "rpm");
                 }
                 else if (int.Parse(TextBox_Change_portRPM.Text) == mGpsPort)
                 {
-                    MessageBox.Show("GPS포트와 RPM포트는 동일할 수 없습니다.");
+                    ShowMessage("GPS포트와 RPM포트는 동일할 수 없습니다.", "rpm");
                 }
                 else
                 {
                     mRpmPort = int.Parse(TextBox_Change_portRPM.Text);
+                    message_rpmPort.Visible = false;
                     RestartRPM();
                     UpdateUI();
                 }
 
+            }
+        }
+
+        private void ShowMessage(string message, string type)
+        {
+            if (type == "gps")
+            {
+                message_gpsPort.Visible = true;
+                message_gpsPort.Text = message;
+            }
+
+            if (type == "rpm")
+            {
+                message_rpmPort.Visible = true;
+                message_rpmPort.Text = message;
             }
         }
 
@@ -515,6 +545,10 @@ namespace ShipEmulator
             await GetChangeRpmPort();
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
