@@ -22,7 +22,7 @@ namespace ShipEmulator
     public partial class ShipEmulatorView : Form
     {
         private UdpClient mGpsUDPClient;
-        private UdpClient mRpmUDLClient;
+        private UdpClient mRpmUDPClient;
         private UdpClient mChangePortGPS;
         private UdpClient mChangePortRPM;
         private Thread mThread_Gps;
@@ -153,12 +153,12 @@ namespace ShipEmulator
         {
             if (mIsRunning)
             {
-                if (mRpmUDLClient != null)
+                if (mRpmUDPClient != null)
                 {
-                    mRpmUDLClient.Close();
-                    mRpmUDLClient = null;
+                    mRpmUDPClient.Close();
+                    mRpmUDPClient = null;
                 }
-                mRpmUDLClient = new UdpClient(mRpmPort);
+                mRpmUDPClient = new UdpClient(mRpmPort);
 
             }
         }
@@ -218,8 +218,11 @@ namespace ShipEmulator
             }
             finally
             {
-                mGpsUDPClient.Close();
-                mGpsUDPClient = null;
+                if (mGpsUDPClient != null)
+                {
+                    mGpsUDPClient.Close();
+                    mGpsUDPClient = null;
+                }
             }
         }
 
@@ -231,13 +234,16 @@ namespace ShipEmulator
             int rpmData;
             try
             {
-                mRpmUDLClient = new UdpClient(mRpmPort);
-                mRpmUDLClient.Client.ReceiveTimeout = 1000;
+                if (mRpmUDPClient == null)
+                {
+                    mRpmUDPClient = new UdpClient(mRpmPort);
+                }
+                mRpmUDPClient.Client.ReceiveTimeout = 1000;
                 while (mIsRunning)
                 {
                     try
                     {
-                        getBytes = mRpmUDLClient.Receive(ref point);
+                        getBytes = mRpmUDPClient.Receive(ref point);
                         mGetRpmTime = DateTime.Now;
                         if (mConnectRpmTime == null)
                         {
@@ -260,8 +266,11 @@ namespace ShipEmulator
             }
             finally
             {
-                mRpmUDLClient.Close();
-                mRpmUDLClient = null;
+                if (mRpmUDPClient != null)
+                {
+                    mRpmUDPClient.Close();
+                    mRpmUDPClient = null;
+                }
             }
         }
 
@@ -333,6 +342,7 @@ namespace ShipEmulator
             }
         }
 
+        // 스레드 내에서 Lable을 바꾸는 것이 아닌, 타이머를 사용해서 0.1초에 UI를 새로 그릴 수 있도록 타이머를 호출해주는 함수 
         private void Timer_UI(object sender, ElapsedEventArgs e)
         {
 
@@ -362,6 +372,7 @@ namespace ShipEmulator
             }
         }
 
+        // UI를 변화시킬 때 0.1초에 한 번 사용하는 함수.
         private void UpdateUI()
         {
             Label_Text_Sentence.Text = mGPGGA;
@@ -443,7 +454,7 @@ namespace ShipEmulator
             }
         }
 
-
+        // RPM 포트 번호 변경 버튼 클릭시 실행되는 함수 
         private void Button_Change_PortRPM_Click(object sender, EventArgs e)
         {
             if (TextBox_Change_portRPM.Text != "")
@@ -466,6 +477,7 @@ namespace ShipEmulator
             }
         }
 
+        // 비동기 프로그래밍을 사용하여 선박에서 변화된 GPS 포트를 감지하는 함수 
         private async void StartChangeGpsPort()
         {
             if (mChangePortGPS == null)
@@ -475,6 +487,7 @@ namespace ShipEmulator
             }
         }
 
+        // 비동기 프로그래밍을 사용하여 선박에서 변화된 RPM 포트를 감지하는 함수 
         private async void StartChangeRpmPort()
         {
             if (mChangePortRPM == null)
@@ -484,6 +497,7 @@ namespace ShipEmulator
             }
         }
 
+        // 감지한 GPS포트를 받아 변환 후 Label로 정보를 뿌려주는 함수 
         private async Task GetChangeGpsPort() 
         {
             UdpReceiveResult getGpsPort = await mChangePortGPS.ReceiveAsync();
@@ -492,6 +506,7 @@ namespace ShipEmulator
             await GetChangeGpsPort();
         }
 
+        // 감지한 RPM포트를 받아 변환 후 Label로 정보를 뿌려주는 함수 
         private async Task GetChangeRpmPort()
         {
             UdpReceiveResult getRpmPort = await mChangePortRPM.ReceiveAsync();

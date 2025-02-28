@@ -10,7 +10,7 @@ namespace Ship_ShipEmulator
     public partial class ShipEmulatorView : Form
     {
         private UdpClient mGpsUDPClient;
-        private UdpClient mRpmUDLClient;
+        private UdpClient mRpmUDPClient;
         private Thread mThread_Send;
         private Random random = new Random();
         private bool mIsRunning = false;
@@ -34,10 +34,6 @@ namespace Ship_ShipEmulator
             
         }
 
-        private void ShipEmulatorView_Load(object sender, EventArgs e)
-        {
-            
-        }
 
         // 송신시작 버튼을 클릭하였을 때 불러오는 함수 
         private void Button_Start_Click(object sender, EventArgs e)
@@ -47,7 +43,7 @@ namespace Ship_ShipEmulator
                 mRpm = random.Next(500, 1500);
                 int time = 1000 / mHz; // 1hz는 1초에 몇 번 진동하는지 여부.
                 mGpsUDPClient = new UdpClient();
-                mRpmUDLClient = new UdpClient();
+                mRpmUDPClient = new UdpClient();
                 mIsRunning = true;
                 Thread mThread_Send = new Thread(Send);
                 mThread_Send.IsBackground = true;
@@ -68,10 +64,9 @@ namespace Ship_ShipEmulator
         {
             if (mIsRunning) 
             {
-                mRpm = 0;
                 mIsRunning = false;
                 mGpsUDPClient.Close();
-                mRpmUDLClient.Close();
+                mRpmUDPClient.Close();
 
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
@@ -146,7 +141,7 @@ namespace Ship_ShipEmulator
                 RpmData = BitConverter.GetBytes(Rpm);
 
                 mGpsUDPClient.Send(GpsData, GpsData.Length, "127.0.0.1", mGpsPort);
-                mRpmUDLClient.Send(RpmData, RpmData.Length, "127.0.0.1", mRpmPort);
+                mRpmUDPClient.Send(RpmData, RpmData.Length, "127.0.0.1", mRpmPort);
                 Thread.Sleep(time);
             }
         }
@@ -221,6 +216,7 @@ namespace Ship_ShipEmulator
             }
         }
 
+        // 송신중에는 X버튼을 눌러 창을 닫지 못하게 하는 함수 
         private void ShipEmulatorView_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (mIsRunning)
@@ -255,6 +251,7 @@ namespace Ship_ShipEmulator
             return 0;
         }
 
+        // 타이머를 사용하여 0.1초에 한 번 UI의 Label을 변화시키는 함수 
         private void Timer_UI(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(mGPGGA)) return;
