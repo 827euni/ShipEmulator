@@ -10,7 +10,7 @@ namespace Ship_ShipEmulator
     public partial class ShipEmulatorView : Form
     {
         private UdpClient mGpsUDPClient;
-        private UdpClient mRpmUDLClient;
+        private UdpClient mRpmUDPClient;
         private Thread mThread_Send;
         private Random random = new Random();
         private bool mIsRunning = false;
@@ -47,7 +47,7 @@ namespace Ship_ShipEmulator
                 mRpm = random.Next(500, 1500);
                 int time = 1000 / mHz; // 1hz는 1초에 몇 번 진동하는지 여부.
                 mGpsUDPClient = new UdpClient();
-                mRpmUDLClient = new UdpClient();
+                mRpmUDPClient = new UdpClient();
                 mIsRunning = true;
                 Thread mThread_Send = new Thread(Send);
                 mThread_Send.IsBackground = true;
@@ -70,7 +70,7 @@ namespace Ship_ShipEmulator
             {
                 mIsRunning = false;
                 mGpsUDPClient.Close();
-                mRpmUDLClient.Close();
+                mRpmUDPClient.Close();
 
                 Button_Start.Enabled = true;
                 Button_Stop.Enabled = false;
@@ -145,7 +145,7 @@ namespace Ship_ShipEmulator
                 RpmData = BitConverter.GetBytes(Rpm);
 
                 mGpsUDPClient.Send(GpsData, GpsData.Length, "127.0.0.1", mGpsPort);
-                mRpmUDLClient.Send(RpmData, RpmData.Length, "127.0.0.1", mRpmPort);
+                mRpmUDPClient.Send(RpmData, RpmData.Length, "127.0.0.1", mRpmPort);
                 Thread.Sleep(time);
             }
         }
