@@ -458,6 +458,10 @@ namespace ShipEmulator
                 {
                     ShowMessage("GPS포트와 RPM포트는 동일할 수 없습니다.", "gps");
                 }
+                else if (int.Parse(TextBox_Change_portGPS.Text) == mGetRPMPortData)
+                {
+                    ShowMessage("선박에서 RPM포트로 사용하고 있는 포트입니다.", "gps");
+                }
                 else
                 {
                     mGpsPort = int.Parse(TextBox_Change_portGPS.Text);
@@ -481,6 +485,12 @@ namespace ShipEmulator
                 {
                     ShowMessage("GPS포트와 RPM포트는 동일할 수 없습니다.", "rpm");
                 }
+
+                else if (int.Parse(TextBox_Change_portRPM.Text) == mGetGPSPortData)
+                {
+                    ShowMessage("선박에서 GPS포트로 사용하고 있는 포트입니다.", "rpm");
+                }
+
                 else
                 {
                     mRpmPort = int.Parse(TextBox_Change_portRPM.Text);
@@ -492,6 +502,7 @@ namespace ShipEmulator
             }
         }
 
+        // 포트 번호 변경에 대해서 문제가 생길 경우 UI적으로 전시해주는 함수 
         private void ShowMessage(string message, string type)
         {
             if (type == "gps")
